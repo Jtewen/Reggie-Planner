@@ -1,2 +1,2 @@
 # Reggie-Planner
-IT 326 Project
+A planning website for Illinois State University students to 

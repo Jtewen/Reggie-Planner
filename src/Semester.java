@@ -25,7 +25,6 @@ public class Semester {
         this.courses.addAll(courses);
     }
 
-
     public int getCredits(){
         int credits = 0;
         for(Course course : courses){

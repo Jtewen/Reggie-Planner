@@ -12,6 +12,17 @@ public class Course{
         this.credit_hours = credit_hours;
     }
 
+
+
+
+
+
+
+
+
+
+
+    
     public String getId() {
         return this.id;
     }

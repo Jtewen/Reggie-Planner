@@ -1,3 +1,5 @@
+package com.isu.reggieplan.Schedule;
+
 import java.util.*;
 
 public class Semester {

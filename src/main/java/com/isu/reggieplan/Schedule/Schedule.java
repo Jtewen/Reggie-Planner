@@ -1,5 +1,7 @@
+package com.isu.reggieplan.Schedule;
+
 import java.util.*;
-import majors.*;
+import com.isu.reggieplan.Schedule.majors.*;
 //This class is 
 
 public class Schedule {

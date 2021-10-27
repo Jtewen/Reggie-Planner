@@ -1,4 +1,7 @@
-import majors.*;
+package com.isu.reggieplan.Schedule;
+import com.isu.reggieplan.Schedule.majors.*;
+
+
 //This manages the schedule and is used to interact with a schedule.
 
 public class ScheduleManager {

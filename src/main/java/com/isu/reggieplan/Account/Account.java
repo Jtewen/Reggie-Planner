@@ -1,3 +1,6 @@
+package com.isu.reggieplan.Account;
+import com.isu.reggieplan.Schedule.*;
+
 public class Account {
 
     private String firstName;

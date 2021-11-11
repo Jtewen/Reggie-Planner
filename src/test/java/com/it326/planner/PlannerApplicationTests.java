@@ -1,10 +1,10 @@
-package com.isu.reggieplan;
+package com.it326.planner;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ReggieplanApplicationTests {
+class PlannerApplicationTests {
 
 	@Test
 	void contextLoads() {

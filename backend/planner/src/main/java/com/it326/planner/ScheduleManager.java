@@ -11,6 +11,10 @@ public class ScheduleManager{
         
     }
 
+    public void addSchedule(){
+        
+    }
+
     public void calculateSchedule(){
 
     }

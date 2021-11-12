@@ -10,13 +10,13 @@ public class Account {
     String password;
 
 // Constructor
-    public void Account(ScheduleManager manager, String fname, String lname, String username String password)
+    public void Account()
     {
-        this.manager = manager;
-        firstName = fname;
-        lastName = lname;
-        this.username = username;
-        this.password = password;
+        manager = new ScheduleManager();
+        firstName = "";
+        lastName = "";
+        username = "";
+        password = "";
     }
 
 

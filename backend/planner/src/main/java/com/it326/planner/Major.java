@@ -7,6 +7,9 @@ public Interface Major{
     List<Course> requiredCourse;
     Final int creditsNeededToGradute = 120;
 
+    public void major(){
+    }
+
 	public List<Course> getRequiredCourse();
 	public int getCreditsNeededToGradute();
 

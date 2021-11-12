@@ -7,6 +7,10 @@ import com.it326.planner.*;
 public class ScheduleManager{
     List<Schedule> schedules;
 
+    public ScheduleManager(){
+        
+    }
+
     public void calculateSchedule(){
 
     }
@@ -24,6 +28,6 @@ public class ScheduleManager{
     }
 
     public void downloadPlan(){
-        
+
     }
 }

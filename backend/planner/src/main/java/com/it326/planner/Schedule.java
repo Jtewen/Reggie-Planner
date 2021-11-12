@@ -10,6 +10,10 @@ public class Schedule {
     Date graduation;
     List<Semester> semesters;
 
+    public Schedule(){
+        
+    }
+
     public void addSemester(Semester s){
         this.semesters.add(s);
     }

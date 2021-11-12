@@ -10,8 +10,8 @@ public class Schedule {
     Date graduation;
     List<Semester> semesters;
 
-    public void addSemester(){
-
+    public void addSemester(Semester s){
+        this.semesters.add(s);
     }
 
     public void removeSemester(Semester semester){
@@ -19,7 +19,15 @@ public class Schedule {
     }
 
     public void addExternalCreds(int creds){
-        
+        this.setExternalCreds(this.getExternalCreds()+creds);
+    }
+
+    public void addMinor(String minor){
+
+    }
+
+    public void removeMinor(){
+
     }
 
     //Getters and Setters

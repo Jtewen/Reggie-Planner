@@ -1,15 +1,56 @@
+package com.it326.planner;
+
 public class Account {
 
-    String name;
+    ScheduleManager manager;
+    String lastName;
+    String firstName;
     String username;
     String password;
 
-	public String getName() {
-		return this.name;
+// Constructor
+    public void Account(ScheduleManager manager, String fname, String lname, String username String password)
+    {
+        this.manager = manager;
+        firstName = fname;
+        lastName = lname;
+        this.username = username;
+        this.password = password;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // Getters and Setters
+	public ScheduleManager getManager() {
+		return this.manager;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setManager(ScheduleManager manager) {
+		this.manager = manager;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getUsername() {
@@ -27,7 +68,6 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 
 

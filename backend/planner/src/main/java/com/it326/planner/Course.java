@@ -7,12 +7,14 @@ import com.it326.planner.*;
 public class Course{
     private String department, teacherName, description;
     private int courseNumber;
+    private StudentInfo studentInfo;
 
     public Course(){
         department = "";
         teacherName = "";
         description = "";
         courseNumber = 0;
+        studentInfo = new studentInfo();
     }
 
     //Getters and Setters

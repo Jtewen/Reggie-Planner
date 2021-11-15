@@ -8,6 +8,7 @@ public class Semester {
     private int maxCreds;
     private Date semesterStart, semesterEnd;
     private List<Course> courses;
+    private boolean completed;
 
     public Semester(){
         maxCreds = 15;
@@ -47,5 +48,13 @@ public class Semester {
 
     public Date setSemesterEnd(Date semesterEnd){
         return semesterEnd;
+    }
+
+    public boolean isCompleted(){
+        return completed;
+    }
+
+    public void setCompleted(boolean compl){
+        completed = compl;
     }
 }

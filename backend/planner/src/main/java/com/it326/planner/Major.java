@@ -2,16 +2,16 @@ package com.it326.planner;
 import java.util.List;
 import com.it326.planner.*;
 
-public Interface Major{
+public interface Major{
 
     List<Course> requiredCourse;
-    Final int creditsNeededToGradute = 120;
+    final int creditsNeededToGradute = 120;
 
-    public void major(){
-    }
+    public void major();
 
 	public List<Course> getRequiredCourse();
 	public int getCreditsNeededToGradute();
+    public Course calcBestCourse();
 
 
 

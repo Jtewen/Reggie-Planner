@@ -23,11 +23,11 @@ public class StudentInfo{
         this.grade = grade;
     }
 
-    public int getNotes(){
+    public String getNotes(){
         return notes;
     }
 
-    public void setNotes(int notes){
+    public void setNotes(String notes){
         this.notes = notes;
     }
 }

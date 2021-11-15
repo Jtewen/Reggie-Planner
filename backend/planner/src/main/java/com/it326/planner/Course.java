@@ -14,32 +14,32 @@ public class Course{
         teacherName = "";
         description = "";
         courseNumber = 0;
-        studentInfo = new studentInfo();
+        studentInfo = new StudentInfo();
     }
 
     //Getters and Setters
 
-    public int getDepartment(){
+    public String getDepartment(){
         return department;
     }
 
-    public void setDepartment(int department){
+    public void setDepartment(String department){
         this.department = department;
     }
 
-    public int getTeacherName(){
+    public String getTeacherName(){
         return teacherName;
     }
 
-    public void setTeacherName(int teacherName){
+    public void setTeacherName(String teacherName){
         this.teacherName = teacherName;
     }
     
-    public int getDescription(){
+    public String getDescription(){
         return description;
     }
 
-    public void setDescription(int description){
+    public void setDescription(String description){
         this.description = description;
     }
 

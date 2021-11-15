@@ -15,8 +15,7 @@ public class ScheduleManager{
         
     }
 
-    public void calculateSchedule(){
-
+    public void calculateSchedule(Schedule sched, int ver){
     }
 
     public void filterClass(){

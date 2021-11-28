@@ -14,6 +14,12 @@ public class Schedule {
         
     }
 
+
+    public void addSemester(){
+        this.semesters.add(new Semester());
+    }
+
+
     public void addSemester(Semester s){
         this.semesters.add(s);
     }
@@ -67,5 +73,10 @@ public class Schedule {
     public void setMinor(String minor) {
         this.minor = minor;
     }
+
+    public Semester getSemester(int index){
+        return semesters.get(index);
+    }
+
 
 }

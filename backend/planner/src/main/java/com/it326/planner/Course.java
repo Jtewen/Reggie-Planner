@@ -8,6 +8,8 @@ public class Course{
     private String department, teacherName, description;
     private int courseNumber;
     private StudentInfo studentInfo;
+    private List<Course> preReq;
+
 
     public Course(){
         department = "";
@@ -16,6 +18,15 @@ public class Course{
         courseNumber = 0;
         studentInfo = new StudentInfo();
     }
+
+    public Course(String dept, String teach, String desc, int num){
+        department = "";
+        teacherName = "";
+        description = "";
+        courseNumber = 0;
+        studentInfo = new StudentInfo();
+    }
+
 
     //Getters and Setters
 
@@ -50,4 +61,9 @@ public class Course{
     public void setcourseNumber(int courseNumber){
         this.courseNumber = courseNumber;
     }
+
+    public void addPreReq(Course c){
+        preReq.add(c);
+    }
+
 }

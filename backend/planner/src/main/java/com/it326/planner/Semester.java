@@ -57,4 +57,9 @@ public class Semester {
     public void setCompleted(boolean compl){
         completed = compl;
     }
+
+    public Course getCourses(int index){
+        return courses.get(index);
+    }
+
 }

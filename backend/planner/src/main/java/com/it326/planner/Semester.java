@@ -61,4 +61,5 @@ public class Semester {
     public Course getCourses(int index){
         return courses.get(index);
     }
+
 }

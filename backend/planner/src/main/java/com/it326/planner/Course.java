@@ -10,6 +10,7 @@ public class Course{
     private StudentInfo studentInfo;
     private List<Course> preReq;
 
+
     public Course(){
         department = "";
         teacherName = "";
@@ -25,6 +26,7 @@ public class Course{
         courseNumber = 0;
         studentInfo = new StudentInfo();
     }
+
 
     //Getters and Setters
 
@@ -63,4 +65,5 @@ public class Course{
     public void addPreReq(Course c){
         preReq.add(c);
     }
+
 }

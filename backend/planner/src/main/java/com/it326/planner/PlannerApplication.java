@@ -1,13 +1,13 @@
-package com.isu.reggieplan;
+package com.it326.planner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReggieplanApplication {
+public class PlannerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReggieplanApplication.class, args);
+		SpringApplication.run(PlannerApplication.class, args);
 	}
 
 }

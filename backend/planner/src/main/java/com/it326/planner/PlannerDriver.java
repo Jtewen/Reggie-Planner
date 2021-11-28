@@ -5,6 +5,7 @@ import com.it326.planner.*;
 public class PlannerDriver {
     public static void main(String[] args){
         Account testAcc = new Account();
+
         testAcc.setFirstName("Jake");
         testAcc.setLastName("Ewen");
         //click the add schedule option
@@ -18,5 +19,6 @@ public class PlannerDriver {
         testAcc.getManager().getSchedule(0).getSemester(0).addCourse(crs1);
         testAcc.getManager().getSchedule(0).getSemester(0).addCourse(crs2);
         testAcc.getManager().getSchedule(0).getSemester(0).addCourse(crs3);
+
     }
 }

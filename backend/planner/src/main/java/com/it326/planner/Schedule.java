@@ -9,6 +9,7 @@ public class Schedule {
     int externalCreds;
     Date graduation;
     List<Semester> semesters;
+    List<Course> unassignedCourses;
 
     public Schedule(){
         

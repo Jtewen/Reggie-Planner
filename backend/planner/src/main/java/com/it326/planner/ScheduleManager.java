@@ -6,6 +6,7 @@ import com.it326.planner.*;
 
 public class ScheduleManager{
     List<Schedule> schedules;
+    List<Course> unassignedCourses;
 
     public ScheduleManager(){
         

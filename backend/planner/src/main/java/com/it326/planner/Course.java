@@ -5,25 +5,26 @@ import java.util.List;
 import com.it326.planner.*;
 
 public class Course{
-    private String department, teacherName, description;
-    private int courseNumber;
+    private String department, description;
+    private int courseNumber, credits;
     private StudentInfo studentInfo;
     private List<Course> preReq;
 
 
     public Course(){
         department = "";
-        teacherName = "";
         description = "";
         courseNumber = 0;
         studentInfo = new StudentInfo();
     }
 
-    public Course(String dept, String teach, String desc, int num){
-        department = "";
-        teacherName = "";
-        description = "";
-        courseNumber = 0;
+    public Course(String dept, int num, String name, int creds, String pre, String desc){
+        department = dept;
+        description = desc;
+        courseNumber = num;
+        credits = creds;
+        String[] temp
+
         studentInfo = new StudentInfo();
     }
 
@@ -36,14 +37,6 @@ public class Course{
 
     public void setDepartment(String department){
         this.department = department;
-    }
-
-    public String getTeacherName(){
-        return teacherName;
-    }
-
-    public void setTeacherName(String teacherName){
-        this.teacherName = teacherName;
     }
     
     public String getDescription(){

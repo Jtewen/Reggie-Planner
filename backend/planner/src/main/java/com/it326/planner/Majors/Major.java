@@ -1,4 +1,4 @@
-package com.it326.planner;
+package com.it326.planner.Majors;
 import java.util.List;
 import com.it326.planner.*;
 

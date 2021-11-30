@@ -65,6 +65,7 @@ public class Schedule {
 
     public void setMajor(String major) {
         this.major = major;
+        
     }
 
     public String getMinor() {

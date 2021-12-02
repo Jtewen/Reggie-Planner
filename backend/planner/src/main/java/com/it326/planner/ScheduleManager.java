@@ -1,11 +1,10 @@
 package com.it326.planner;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import com.it326.planner.*;
 
 public class ScheduleManager{
-    List<Schedule> schedules;
+    List<Schedule> schedules = new ArrayList<Schedule>();
 
     public ScheduleManager(){
         

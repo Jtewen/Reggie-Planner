@@ -10,7 +10,7 @@ public class Course{
     private int courseNumber, credits;
     private StudentInfo studentInfo;
     private String[] tempReqs;
-    private List<Course> preReqs;
+    private List<Course> preReqs = new ArrayList<Course>();
 
 
     public Course(){
@@ -26,7 +26,7 @@ public class Course{
         description = desc;
         courseNumber = num;
         credits = creds;
-        tempReqs = pre.replaceAll("[]\"", "").replace(" ", "").replace("or", ",").split(",");
+        tempReqs = pre.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "").replace("or", ",").split(",");
         studentInfo = new StudentInfo();
     }
 

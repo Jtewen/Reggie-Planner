@@ -1,6 +1,6 @@
 package com.it326.planner;
 
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 import com.it326.planner.*;
 import com.it326.planner.Majors.Major;
@@ -10,8 +10,8 @@ public class Schedule {
     String minor;
     int externalCreds;
     Date graduation;
-    List<Semester> semesters;
-    List<Course> unassignedCourses;
+    List<Semester> semesters = new ArrayList<Semester>();
+    List<Course> unassignedCourses = new ArrayList<Course>();
 
     public Schedule(){
         
@@ -67,7 +67,7 @@ public class Schedule {
 
     public void setMajor(Major major) {
         this.major = major;
-        
+        this.unassignedCourses = major.getRequiredCourse();
     }
 
     public String getMinor() {

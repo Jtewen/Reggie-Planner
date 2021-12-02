@@ -1,5 +1,6 @@
 package com.it326.planner;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.it326.planner.*;
@@ -8,7 +9,8 @@ public class Course{
     private String department, description;
     private int courseNumber, credits;
     private StudentInfo studentInfo;
-    private List<Course> preReq;
+    private String[] tempReqs;
+    private List<Course> preReqs;
 
 
     public Course(){
@@ -16,6 +18,7 @@ public class Course{
         description = "";
         courseNumber = 0;
         studentInfo = new StudentInfo();
+        preReqs = new ArrayList<Course>();
     }
 
     public Course(String dept, int num, String name, int creds, String pre, String desc){
@@ -23,8 +26,7 @@ public class Course{
         description = desc;
         courseNumber = num;
         credits = creds;
-        String[] temp
-
+        tempReqs = pre.replaceAll("[]\"", "").replace(" ", "").replace("or", ",").split(",");
         studentInfo = new StudentInfo();
     }
 
@@ -56,7 +58,15 @@ public class Course{
     }
 
     public void addPreReq(Course c){
-        preReq.add(c);
+        preReqs.add(c);
+    }
+
+    public String[] getTempPreReqs(){
+        return tempReqs;
+    }
+
+    public List<Course> getPreReqs(){
+        return preReqs;
     }
 
 }

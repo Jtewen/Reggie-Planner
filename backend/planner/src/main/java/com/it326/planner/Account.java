@@ -10,7 +10,7 @@ public class Account {
     String password;
 
 // Constructor
-    public void Account()
+    public Account()
     {
         manager = new ScheduleManager();
         firstName = "";
@@ -18,6 +18,14 @@ public class Account {
         username = "";
         password = "";
     }
+
+	public Account(String fname, String lname, String uname, String pwd){
+		manager = new ScheduleManager();
+		firstName = fname;
+		lastName = lname;
+		username = uname;
+		password = pwd;
+	}
 
 
 

@@ -1,5 +1,4 @@
 Class,Full Name,Credits,Prerequisites,Description
-,,,,
 """IT 140""","""Interacting In A Digital World""",3,"[""COM 110"",""ENG 101""]",This course provides foundation concepts of computers and information technologies and their application in today's world. Lecture and lab. Not for credit IT Major or minor.
 """IT 150""",Using Microcomputer Productivity Tools,3,,"Introduction to typical microcomputer-based productivity tools such as word processing, spreadsheets, databases, and presentation graphics. Lecture and lab. Not for credit IT major/minor, or if had BTE 125."
 """IT 164""",Introduction To Problem Solving Using The Computer,3,,"Use of pseudocode, charts, and Python to develop the analytical and algorithmic thinking necessary to succeeding in programming courses."
@@ -69,8 +68,4 @@ Class,Full Name,Credits,Prerequisites,Description
 """IT 388""","""Introduction To Parallel Processing""",3,"[""IT 225"", ""IT 279""]",Study of parallel processors and their software environments. Students will write programs for several parallel computers. Offered alternate years.
 """IT 391""","""Directed Project In Information Technology""",3,"[""IT 191"", ""IT 377"", or ""IT 378"", or ""IT 383""]","Team design and/or implementation of a modest-sized computer-based system in a live environment under faculty supervision. May be repeated; maximum 16 hours combined credit in IT 298, 391 and 398."
 """IT 392""","""Enterprise Systems Integration & Application Development""",3,"[""IT 272"",  ""IT 330""]","Capstone course including business applications, systems integration, enterprise business decisions, systems administration, and the systems deployment life cycle."
-"""IT 398""","""Professional Practice: In Information Technology""",1-6,"[""IT 191""]"," ""Multiple enrollments are allowed. Maximum 16 hours credit in Professional Practice."""
-,,,,
-,,,,
-,,,,
-,Cocurrent Enrollemnt,,,
+"""IT 398""","""Professional Practice: In Information Technology""",6,"[""IT 191""]"," ""Multiple enrollments are allowed. Maximum 16 hours credit in Professional Practice."""

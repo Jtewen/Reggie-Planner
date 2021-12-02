@@ -36,9 +36,23 @@ public class IT implements Major{
                     }
                 }
             }
+
+            addParents(requiredCourses);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    public void addParents(List<Course> nodes){
+        for(Course node: nodes){
+            for(Course child: nodes){
+                for(String name: child.getTempPreReqs()){
+                    if((node.getDepartment()+node.getcourseNumber()).equals(name)){
+                        child.addPreReq(node);
+                    }
+                }
+            }
         }
     }
 

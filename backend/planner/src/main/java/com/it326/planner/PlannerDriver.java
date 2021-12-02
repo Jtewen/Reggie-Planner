@@ -14,7 +14,13 @@ public class PlannerDriver {
         Schedule mainSched = testAcc.getManager().getSchedule(0);
         mainSched.setMajor(new IT());
         
-
+        System.out.print("course list");
+        for(Course c : mainSched.getUnassignedCourses()){
+            System.out.println(c.getcourseNumber() + "--");
+            for(Course pre : c.getPreReqs()){
+                System.out.println(pre.getcourseNumber());
+            }
+        }
 
     }
 }

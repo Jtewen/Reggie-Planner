@@ -3,12 +3,15 @@ package com.it326.planner;
 import java.util.Date;
 import java.util.List;
 import com.it326.planner.*;
+import com.it326.planner.Majors.Major;
 
 public class Schedule {
-    String major, minor;
+    Major major;
+    String minor;
     int externalCreds;
     Date graduation;
     List<Semester> semesters;
+    List<Course> unassignedCourses;
 
     public Schedule(){
         
@@ -58,12 +61,13 @@ public class Schedule {
         this.externalCreds = externalCreds;
     }
 
-    public String getMajor() {
+    public Major getMajor() {
 		return this.major;
 	}
 
-    public void setMajor(String major) {
+    public void setMajor(Major major) {
         this.major = major;
+        
     }
 
     public String getMinor() {
@@ -76,6 +80,10 @@ public class Schedule {
 
     public Semester getSemester(int index){
         return semesters.get(index);
+    }
+
+    public List<Course> getUnassignedCourses(){
+        return unassignedCourses;
     }
 
 

@@ -1,29 +1,32 @@
 package com.it326.planner;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.it326.planner.*;
 
 public class Course{
-    private String department, teacherName, description;
-    private int courseNumber;
+    private String department, description;
+    private int courseNumber, credits;
     private StudentInfo studentInfo;
-    private List<Course> preReq;
+    private String[] tempReqs;
+    private List<Course> preReqs;
 
 
     public Course(){
         department = "";
-        teacherName = "";
         description = "";
         courseNumber = 0;
         studentInfo = new StudentInfo();
+        preReqs = new ArrayList<Course>();
     }
 
-    public Course(String dept, String teach, String desc, int num){
-        department = "";
-        teacherName = "";
-        description = "";
-        courseNumber = 0;
+    public Course(String dept, int num, String name, int creds, String pre, String desc){
+        department = dept;
+        description = desc;
+        courseNumber = num;
+        credits = creds;
+        tempReqs = pre.replaceAll("[]\"", "").replace(" ", "").replace("or", ",").split(",");
         studentInfo = new StudentInfo();
     }
 
@@ -36,14 +39,6 @@ public class Course{
 
     public void setDepartment(String department){
         this.department = department;
-    }
-
-    public String getTeacherName(){
-        return teacherName;
-    }
-
-    public void setTeacherName(String teacherName){
-        this.teacherName = teacherName;
     }
     
     public String getDescription(){
@@ -63,7 +58,15 @@ public class Course{
     }
 
     public void addPreReq(Course c){
-        preReq.add(c);
+        preReqs.add(c);
+    }
+
+    public String[] getTempPreReqs(){
+        return tempReqs;
+    }
+
+    public List<Course> getPreReqs(){
+        return preReqs;
     }
 
 }

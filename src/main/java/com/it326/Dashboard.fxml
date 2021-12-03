@@ -2,22 +2,29 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.it326.guiController">
+<BorderPane minHeight="0.0" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.it326.guiController">
    <top>
-      <VBox prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuContainer" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar minHeight="25.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -36,23 +43,26 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <HBox prefHeight="36.0" prefWidth="600.0">
+            <HBox fx:id="loginBar" prefHeight="36.0" prefWidth="600.0">
                <children>
                   <TextField fx:id="usrField" promptText="Username">
                      <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <PasswordField fx:id="pwdField" promptText="Password" />
+                  <PasswordField fx:id="pwdField" promptText="Password">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></PasswordField>
                   <Region prefHeight="35.0" prefWidth="136.0" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#attemptLogin" text="Login">
                      <HBox.margin>
-                        <Insets />
+                        <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Register">
+                  <Button mnemonicParsing="false" onAction="#register" text="Register">
                      <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -60,4 +70,118 @@
          </children>
       </VBox>
    </top>
+   <center>
+      <TabPane minHeight="0.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="scheduleTab" onSelectionChanged="#scheduleTabController" text="Schedules">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <ListView fx:id="scheduleList" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="semesterTab" onSelectionChanged="#semesterTabController" text="Semesters">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <ListView />
+                                 </children>
+                              </VBox>
+                              <GridPane fx:id="semesterGrid" HBox.hgrow="ALWAYS">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="courseTab" onSelectionChanged="#courseTabController" text="Courses">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <ListView />
+                                 </children>
+                              </VBox>
+                              <GridPane fx:id="courseGrid" HBox.hgrow="ALWAYS">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#notesTabController" text="Notes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TextArea fx:id="noteField" disable="true" promptText="Login to use notes." VBox.vgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </TextArea>
+                              <HBox VBox.vgrow="NEVER">
+                                 <children>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button mnemonicParsing="false" onAction="#saveNotes" text="Save">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </TabPane>
+   </center>
+   <bottom>
+      <TextArea fx:id="detailsPane" editable="false" minHeight="0.0" opacity="0.69" prefRowCount="1" promptText="Debug bar" wrapText="true" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="13.0" />
+         </padding>
+      </TextArea>
+   </bottom>
 </BorderPane>

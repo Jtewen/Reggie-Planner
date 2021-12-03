@@ -7,6 +7,7 @@ public class Account {
     String firstName;
     String username;
     String password;
+	String notes;
 
 // Constructor
     public Account()
@@ -20,21 +21,11 @@ public class Account {
 
 	public Account(String fname, String lname, String uname, String pwd){
 		manager = new ScheduleManager();
-		firstName = fname;
-		lastName = lname;
-		username = uname;
-		password = pwd;
+		firstName = fname.trim();
+		lastName = lname.trim();
+		username = uname.trim();
+		password = pwd.trim();
 	}
-
-
-
-
-
-
-
-
-
-
 
     // Getters and Setters
 	public ScheduleManager getManager() {
@@ -75,6 +66,14 @@ public class Account {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void saveNotes(String notes){
+		this.notes = notes;
+	}
+
+	public String getNotes(){
+		return this.notes;
 	}
 
 

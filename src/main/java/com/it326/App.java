@@ -2,7 +2,6 @@ package com.it326;
 
 import java.io.IOException;
 import java.util.*;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -22,6 +21,8 @@ import javafx.scene.control.*;
  */
 public class App extends Application {
 
+    public static ArrayList<Account> accountList;
+    public static String notes;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -29,9 +30,12 @@ public class App extends Application {
         primaryStage.setTitle("Reggie Planner");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {
+        accountList = new ArrayList<Account>();
+        accountList.add(new Account("Jacob", "Ewen", "jewen", "pwd"));
         launch(args);
     }
 

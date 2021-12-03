@@ -1,12 +1,13 @@
 package com.it326;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Semester {
     private int maxCreds;
     private Date semesterStart, semesterEnd;
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<Course>();
     private boolean completed;
 
     public Semester(){
@@ -64,8 +65,12 @@ public class Semester {
         completed = compl;
     }
 
-    public Course getCourses(int index){
-        return courses.get(index);
+    public List<Course> getCourses(){
+        return courses;
+    }
+
+    public String toString(){
+        return "Semester";
     }
 
 }

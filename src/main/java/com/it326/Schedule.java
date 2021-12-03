@@ -5,6 +5,7 @@ import java.util.List;
 import com.it326.Majors.Major;
 
 public class Schedule {
+    String name;
     Major major;
     String minor;
     int externalCreds;
@@ -15,6 +16,10 @@ public class Schedule {
 
     public Schedule(){
         
+    }
+
+    public Schedule(String n){
+        name = n;
     }
 
 
@@ -83,13 +88,28 @@ public class Schedule {
         this.minor = minor;
     }
 
-    public Semester getSemester(int index){
-        return semesters.get(index);
+    public List<Semester> getSemesters(){
+        return semesters;
     }
 
     public List<Course> getUnassignedCourses(){
         return unassignedCourses;
     }
 
+    public void setUnassignedCourses(List<Course> cs){
+        unassignedCourses = cs;
+    }
+
+    public void setName(String n){
+        name = n;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String toString(){
+        return getName();
+    }
 
 }

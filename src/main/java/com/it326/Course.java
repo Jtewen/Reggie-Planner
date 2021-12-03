@@ -70,4 +70,8 @@ public class Course{
         return credits;
     }
 
+    public String toString(){
+        return department+courseNumber;
+    }
+
 }

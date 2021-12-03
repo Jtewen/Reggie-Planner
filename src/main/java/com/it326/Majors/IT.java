@@ -36,7 +36,7 @@ public class IT implements Major{
             for(Course c : requiredCourses){
                 for(String id : c.getTempPreReqs()){
                     for(Course c2 : requiredCourses){
-                        if(c2.getDepartment()+c2.getcourseNumber() == id)
+                        if(c2.toString() == id)
                             c.addPreReq(c2);
                     }
                 }

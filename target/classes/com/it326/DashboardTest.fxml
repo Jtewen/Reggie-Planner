@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -73,74 +74,25 @@
    <center>
       <TabPane minHeight="0.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id="scheduleTab" onSelectionChanged="#scheduleTabController" text="Schedules">
+          <Tab fx:id="scheduleTab" onSelectionChanged="#scheduleTabController" text="Info">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <VBox>
-                           <children>
-                              <ListView fx:id="scheduleList" onMouseClicked="#loadSemesters" />
-                           </children>
-                        </VBox>
+                        <GridPane layoutY="6.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="semesterTab" onSelectionChanged="#semesterTabController" text="Semesters">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0">
-                     <children>
-                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <ListView fx:id="semesterList" onMouseClicked="#loadCourses" />
-                                 </children>
-                              </VBox>
-                              <GridPane fx:id="semesterGrid" HBox.hgrow="ALWAYS">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab fx:id="courseTab" onSelectionChanged="#courseTabController" text="Courses">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0">
-                     <children>
-                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <ListView fx:id="courseList" onMouseClicked="#loadCourseInfo" />
-                                 </children>
-                              </VBox>
-                              <GridPane fx:id="courseGrid" HBox.hgrow="ALWAYS">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
             <Tab onSelectionChanged="#notesTabController" text="Notes">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
@@ -178,10 +130,18 @@
       </TabPane>
    </center>
    <bottom>
-      <TextArea fx:id="detailsPane" editable="false" minHeight="0.0" opacity="0.69" prefRowCount="1" promptText="Debug bar" wrapText="true" BorderPane.alignment="CENTER">
+      <TextArea fx:id="detailsPane" editable="false" minHeight="0.0" prefRowCount="1" promptText="Debug bar" wrapText="true" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="13.0" />
          </padding>
       </TextArea>
    </bottom>
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Tree" />
+            <TreeView fx:id="tree" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

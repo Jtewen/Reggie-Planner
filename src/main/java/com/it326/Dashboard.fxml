@@ -79,7 +79,7 @@
                      <children>
                         <VBox>
                            <children>
-                              <ListView fx:id="scheduleList" />
+                              <ListView fx:id="scheduleList" onMouseClicked="#loadSemesters" />
                            </children>
                         </VBox>
                      </children>
@@ -94,7 +94,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <ListView />
+                                    <ListView fx:id="semesterList" onMouseClicked="#loadCourses" />
                                  </children>
                               </VBox>
                               <GridPane fx:id="semesterGrid" HBox.hgrow="ALWAYS">
@@ -121,7 +121,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <ListView />
+                                    <ListView fx:id="courseList" onMouseClicked="#loadCourseInfo" />
                                  </children>
                               </VBox>
                               <GridPane fx:id="courseGrid" HBox.hgrow="ALWAYS">

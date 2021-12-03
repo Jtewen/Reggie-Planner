@@ -2,6 +2,9 @@ package com.it326;
 
 import java.io.IOException;
 import java.util.*;
+
+import com.it326.Majors.IT;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -36,6 +39,13 @@ public class App extends Application {
     public static void main(String[] args) {
         accountList = new ArrayList<Account>();
         accountList.add(new Account("Jacob", "Ewen", "jewen", "pwd"));
+        ScheduleManager manager = accountList.get(0).getManager();
+        manager.addSchedule("First Sched");
+        manager.getSchedules().get(0).setMajor(new IT());
+        manager.getSchedules().get(0).addSemester();
+        manager.calculateSchedule(manager.getSchedules().get(0));
+
+        
         launch(args);
     }
 

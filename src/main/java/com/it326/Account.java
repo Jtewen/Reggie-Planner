@@ -68,12 +68,8 @@ public class Account {
 		this.password = password;
 	}
 
-	public void saveNotes(String notes){
-		this.notes = notes;
-	}
-
-	public String getNotes(){
-		return this.notes;
+	public String toString(){
+		return username;
 	}
 
 

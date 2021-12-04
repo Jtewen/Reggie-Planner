@@ -3,7 +3,7 @@ package com.it326;
 import java.io.IOException;
 import java.util.*;
 
-import com.it326.Majors.IT;
+import com.it326.Majors.Major;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -214,7 +214,7 @@ public class guiController {
     public void openSemWindow() throws IOException{
         Stage inputStage = new Stage();
         Parent newScene = FXMLLoader.load(getClass().getResource("New_Semester_Scene.fxml"));
-        inputStage.setTitle("Reggie Planner");
+        inputStage.setTitle("Add Semester");
         inputStage.setScene(new Scene(newScene));
         inputStage.initStyle(StageStyle.UTILITY);
         //on "add semester" window close
@@ -284,9 +284,26 @@ public class guiController {
         updateLists();
     }
 
-    public void setMajorCS(){
-        acc.getManager().getSchedule().setMajor(new IT());
-        updateLists();
+    public void setMajor() throws IOException{
+        Stage inputStage = new Stage();
+        Parent newScene = FXMLLoader.load(getClass().getResource("Major_List_Scene.fxml"));
+        inputStage.setTitle("Select Major");
+        inputStage.setScene(new Scene(newScene));
+        inputStage.initStyle(StageStyle.UTILITY);
+        //on "add semester" window close
+        inputStage.setOnHidden(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                try{updateLists();
+                }finally{
+                    inputStage.close();
+                }
+            }
+        });  
+        inputStage.show();
+    }
+
+    public void setMinor(){
+        
     }
 
     public void checkForSem(){

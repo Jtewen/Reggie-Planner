@@ -30,6 +30,7 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#saveAccount" text="Save Changes" />
                         <MenuItem mnemonicParsing="false" onAction="#logout" text="Log out" />
+                        <MenuItem mnemonicParsing="false" onAction="#changePassword" text="Change Password" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Select Major">

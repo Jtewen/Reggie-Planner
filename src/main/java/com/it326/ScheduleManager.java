@@ -33,8 +33,7 @@ public class ScheduleManager{
                     }
                 }
                 if(temp.contains(c)){
-                    Semester tempSem = new Semester("test", 2020);
-                    sched.addSemester(tempSem);
+                    Semester tempSem = sched.addSemester();
                     tempSem.addCourse(c);
                     temp.remove(c);
                 }

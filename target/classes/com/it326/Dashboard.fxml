@@ -32,10 +32,10 @@
                         <MenuItem mnemonicParsing="false" onAction="#logout" text="Log out" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Select Major">
+                <Menu mnemonicParsing="false" text="Schedule">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#setMajorCS" text="Computer Science" />
-                        <MenuItem mnemonicParsing="false" text="Example Major" />
+                    <MenuItem mnemonicParsing="false" onAction="#setMajor" text="Set Major" />
+                        <MenuItem mnemonicParsing="false" onAction="#setMinor" text="Set Minor" />
                         <MenuItem disable="true" mnemonicParsing="false" text="WARNING: THIS WILL RESET YOUR PROGRESS" />
                   </items>
                 </Menu>

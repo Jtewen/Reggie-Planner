@@ -28,6 +28,7 @@ public class guiController {
     @FXML private Button removeCourse;
     @FXML private ChoiceBox<String> seasonMenu;
     @FXML private TextField yearField;
+    @FXML private TextField search;
 
     private Account acc;
 
@@ -88,7 +89,17 @@ public class guiController {
     }
 
     public void loadUnassignedCourses(){
-        ObservableList<Course> listContent = FXCollections.observableList(acc.getManager().getSchedule().getUnassignedCourses());
+
+        ArrayList<Course> newlist = new ArrayList<Course>();
+        for(Course c : acc.getManager().getSchedule().getUnassignedCourses()){
+            newlist.add(c);
+        }
+        String searchbox = search.getText();
+        for(Course c : acc.getManager().getSchedule().getUnassignedCourses()){
+            if(!(c.toString().toLowerCase().contains(searchbox.toLowerCase()) || c.getDescription().toLowerCase().contains(searchbox.toLowerCase())))
+                newlist.remove(c);
+        }
+        ObservableList<Course> listContent = FXCollections.observableList(newlist);
         unassignedCourseList.setItems(listContent);
     }
 
@@ -178,6 +189,12 @@ public class guiController {
         Semester s = semesterList.getSelectionModel().getSelectedItem();
         acc.getManager().getSchedule().addCourse(s, c);
         updateLists();
+    }
+
+    public void searchUnassigned(){
+        String searchTxt = search.getText();
+
+
     }
 
 }

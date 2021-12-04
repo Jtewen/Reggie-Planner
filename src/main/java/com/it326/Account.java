@@ -1,6 +1,8 @@
 package com.it326;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 
     ScheduleManager manager;
     String username;

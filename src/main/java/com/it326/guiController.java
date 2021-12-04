@@ -1,5 +1,10 @@
 package com.it326;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -217,6 +222,13 @@ public class guiController {
 
     public void saveAccount(){
         
+
+
+    }
+
+    public void calcSchedule(){
+        acc.getManager().calculateSchedule(acc.getManager().getSchedule());
+        updateLists();
     }
 
 }

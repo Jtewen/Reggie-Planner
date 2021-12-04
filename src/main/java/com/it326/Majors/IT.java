@@ -20,7 +20,7 @@ public class IT implements Major, Serializable {
     // bound by the requiredCourses list.
     public IT() {
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/com/it326/Majors/ITlist.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/com/it326/Majors/ComputerScience.csv"));
             try (CSVReader csvReader = new CSVReader(reader)) {
                 List<String[]> dataSet = csvReader.readAll();
                 dataSet.remove(0);

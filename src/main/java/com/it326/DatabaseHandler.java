@@ -7,6 +7,7 @@ public class DatabaseHandler {
     
     static ArrayList<Account> accountList = new ArrayList<Account>();
     static ArrayList<Course> courseList = new ArrayList<Course>();
+    static ArrayList<String> majorNames = new ArrayList<String>(); 
     static Account currentAccount;
 
     public static void loadAccounts() throws IOException, ClassNotFoundException{

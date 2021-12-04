@@ -80,7 +80,7 @@ public class Course implements Comparable<Course>, Serializable{
     }
 
     public String toString(){
-        return department+courseNumber;
+        return department + " " + courseNumber;
     }
 
     @Override

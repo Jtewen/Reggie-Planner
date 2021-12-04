@@ -14,8 +14,7 @@ public class guiMajorController {
     private ListView<String> majorList;
 
     public void initialize(){
-        ArrayList<String> majors = new ArrayList<String>();
-        majors.add("Computer Science"); majors.add("Cyber Security"); 
+        ArrayList<String> majors = DatabaseHandler.majorNames;
         majorList.getItems().setAll(majors);
     }
 

@@ -33,7 +33,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Select Major">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Computer Science" />
+                    <MenuItem mnemonicParsing="false" onAction="#setMajorCS" text="Computer Science" />
                         <MenuItem mnemonicParsing="false" text="Example Major" />
                         <MenuItem disable="true" mnemonicParsing="false" text="WARNING: THIS WILL RESET YOUR PROGRESS" />
                   </items>

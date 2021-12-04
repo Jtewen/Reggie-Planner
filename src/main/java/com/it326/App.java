@@ -1,30 +1,20 @@
 package com.it326;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
-
-import com.it326.Majors.IT;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
-
 
 /**
  * JavaFX App
  */
 public class App extends Application {
 
-    public static ArrayList<Account> accountList;
+    public static ArrayList<Account> accountList = new ArrayList<Account>();
     public static String notes;
 
     @Override
@@ -35,11 +25,10 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        accountList = new ArrayList<Account>();
-        accountList.add(new Account("jewen", "pwd"));
-        ScheduleManager manager = accountList.get(0).getManager();
-        manager.getSchedule().setMajor(new IT());
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+        if(new File("src/main/java/com/it326/Data/Accounts.dat").length() == 0)
+            DatabaseHandler.saveAccount();
+        DatabaseHandler.loadAccounts();
         launch(args);
     }
 

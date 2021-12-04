@@ -1,10 +1,11 @@
 package com.it326;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 import com.it326.Majors.Major;
 
-public class Schedule {
+public class Schedule implements Serializable {
     String name;
     Major major;
     String minor;
@@ -14,37 +15,29 @@ public class Schedule {
     List<Course> allCourses = new ArrayList<Course>();
     List<Course> unassignedCourses = new ArrayList<Course>();
 
-    public Schedule(){
-        
+    public Schedule() {
+
     }
 
-    public Schedule(String n){
+    public Schedule(String n) {
         name = n;
     }
 
-
-    public Semester addSemester(){
+    public Semester addSemester() {
         int year = 2020 + java.util.Calendar.YEAR;
         String seas = "";
-        if(semesters.isEmpty())
-        {
-            if(java.util.Calendar.MONTH < 7)
+        if (semesters.isEmpty()) {
+            if (java.util.Calendar.MONTH < 7)
                 seas = "Fall";
-            else
-            {
+            else {
                 seas = "Spring";
                 year++;
             }
-        }
-        else
-        {
-            if(semesters.get(semesters.size() - 1).getSeason() == "Spring")
-            {
+        } else {
+            if (semesters.get(semesters.size() - 1).getSeason() == "Spring") {
                 seas = "Fall";
                 year = semesters.get(semesters.size() - 1).getYear() + 1;
-            }
-            else
-            {
+            } else {
                 seas = "Spring";
                 year = semesters.get(semesters.size() - 1).getYear();
             }
@@ -55,37 +48,36 @@ public class Schedule {
         return tempSem;
     }
 
-    public void addSemester(String seas, int year){
+    public void addSemester(String seas, int year) {
         this.semesters.add(new Semester(seas, year));
         Collections.sort(semesters);
     }
 
-
-    public void addSemester(Semester s){
+    public void addSemester(Semester s) {
         this.semesters.add(s);
     }
 
-    public void removeSemester(Semester semester){
+    public void removeSemester(Semester semester) {
 
     }
 
-    public void addExternalCreds(int creds){
-        this.setExternalCreds(this.getExternalCreds()+creds);
+    public void addExternalCreds(int creds) {
+        this.setExternalCreds(this.getExternalCreds() + creds);
     }
 
-    public void addMinor(String minor){
-
-    }
-
-    public void removeMinor(){
+    public void addMinor(String minor) {
 
     }
 
-    public void calculateSchedule(){
-        
+    public void removeMinor() {
+
     }
 
-    //Getters and Setters
+    public void calculateSchedule() {
+
+    }
+
+    // Getters and Setters
 
     public Date getGraduation() {
         return this.graduation;
@@ -96,16 +88,16 @@ public class Schedule {
     }
 
     public int getExternalCreds() {
-		return this.externalCreds;
-	}
+        return this.externalCreds;
+    }
 
     public void setExternalCreds(int externalCreds) {
         this.externalCreds = externalCreds;
     }
 
     public Major getMajor() {
-		return this.major;
-	}
+        return this.major;
+    }
 
     public void setMajor(Major major) {
         this.major = major;
@@ -114,46 +106,46 @@ public class Schedule {
     }
 
     public String getMinor() {
-		return this.minor;
-	}
+        return this.minor;
+    }
 
     public void setMinor(String minor) {
         this.minor = minor;
     }
 
-    public List<Semester> getSemesters(){
+    public List<Semester> getSemesters() {
         Collections.sort(semesters);
         return semesters;
     }
 
-    public List<Course> getUnassignedCourses(){
+    public List<Course> getUnassignedCourses() {
         return unassignedCourses;
     }
 
-    public void setUnassignedCourses(List<Course> cs){
+    public void setUnassignedCourses(List<Course> cs) {
         unassignedCourses = cs;
     }
 
-    public void setName(String n){
+    public void setName(String n) {
         name = n;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String toString(){
+    public String toString() {
         return getName();
     }
 
-    public void addCourse(Semester s, Course c){
-        if(s.addCourse(c))
+    public void addCourse(Semester s, Course c) {
+        if (s.addCourse(c))
             unassignedCourses.remove(c);
     }
 
-    public void removeCourse(Semester s, Course c){
+    public void removeCourse(Semester s, Course c) {
         s.removeCourse(c);
-        System.out.println("Removed "+c);
+        System.out.println("Removed " + c);
         unassignedCourses.add(c);
         Collections.sort(unassignedCourses);
         System.out.println(unassignedCourses);

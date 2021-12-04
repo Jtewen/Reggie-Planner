@@ -1,9 +1,10 @@
 package com.it326;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course implements Comparable<Course>{
+public class Course implements Comparable<Course>, Serializable{
     private String department, description;
     private int courseNumber, credits;
     private String[] tempReqs;

@@ -4,7 +4,7 @@ import java.util.List;
 import com.it326.Course;
 
 public class csvtest {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Major test = new IT();
         List<Course> courseList = test.getRequiredCourse();
 

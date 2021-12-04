@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class Account implements Serializable {
 
-    ScheduleManager manager;
-    String username;
-    String password;
+	ScheduleManager manager;
+	String username;
+	String password;
 	String notes;
 
-// Constructor
-	public Account(String uname, String pwd){
+	// Constructor
+	public Account(String uname, String pwd) {
 		manager = new ScheduleManager();
 		username = uname.trim();
 		password = pwd.trim();
 	}
 
-    // Getters and Setters
+	// Getters and Setters
 	public ScheduleManager getManager() {
 		return this.manager;
 	}
@@ -41,10 +41,8 @@ public class Account implements Serializable {
 		this.password = password;
 	}
 
-	public String toString(){
+	public String toString() {
 		return username;
 	}
-
-
 
 }

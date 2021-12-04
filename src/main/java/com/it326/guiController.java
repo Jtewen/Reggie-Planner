@@ -1,74 +1,85 @@
 package com.it326;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
+
+import com.it326.Majors.IT;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class guiController {
 
-    @FXML private TextField usrField;
-    @FXML private TextField pwdField;
-    @FXML private TextArea detailsPane;
-    @FXML private HBox loginBar;
-    @FXML private VBox menuContainer;
-    @FXML private GridPane scheduleGrid;
-    @FXML private TextArea noteField;
-    @FXML private ListView<Semester> semesterList;
-    @FXML private ListView<Course> currentCourseList;
-    @FXML private ListView<Course> unassignedCourseList;
-    @FXML private Button semAddButton;
-    @FXML private Button courseAddButton;
-    @FXML private Button removeCourse;
-    @FXML private ChoiceBox<String> seasonMenu;
-    @FXML private TextField yearField;
-    @FXML private TextField search;
+    @FXML
+    private TextField usrField;
+    @FXML
+    private TextField pwdField;
+    @FXML
+    private TextArea detailsPane;
+    @FXML
+    private HBox loginBar;
+    @FXML
+    private VBox menuContainer;
+    @FXML
+    private GridPane scheduleGrid;
+    @FXML
+    private TextArea noteField;
+    @FXML
+    private ListView<Semester> semesterList;
+    @FXML
+    private ListView<Course> currentCourseList;
+    @FXML
+    private ListView<Course> unassignedCourseList;
+    @FXML
+    private Button semAddButton;
+    @FXML
+    private Button courseAddButton;
+    @FXML
+    private Button removeCourse;
+    @FXML
+    private ChoiceBox<String> seasonMenu;
+    @FXML
+    private TextField yearField;
+    @FXML
+    private TextField search;
 
     private Account acc;
 
-    //login button clicked check if it matches anything in account list
-    public void attemptLogin(){
+    // login button clicked check if it matches anything in account list
+    public void attemptLogin() {
         String usr = usrField.getText();
         String pwd = pwdField.getText();
-        boolean success = false;
-        for(Account a : App.accountList){
-            System.out.println("Checking");
-            if(usr.equals(a.getUsername()) && pwd.equals(a.getPassword())){
-                loginInit(a);
-                success = true;
-                break;
-            }
-        }
-        if(!success){
-            detailsPane.setText("Invalid username/password");
-            pwdField.setText("");
+        acc = DatabaseHandler.verifyAccount(usr, pwd);
+        if(acc != null)
+            loginInit(acc);
+        else{
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Login failed. Invalid Username/Password.");
         }
 
     }
 
-    private void loginInit(Account a){
+    // initialization code on login
+    private void loginInit(Account a) {
+        detailsPane.setPrefRowCount(1);
         detailsPane.setText("Login successful. Welcome " + a.getUsername() + ".");
         menuContainer.getChildren().remove(loginBar);
         noteField.setDisable(false);
         noteField.setPromptText("Type to take notes");
-        acc = a;
-
         semAddButton.setDisable(false);
         yearField.setDisable(false);
         seasonMenu.setDisable(false);
         ArrayList<String> arr = new ArrayList<String>();
-        arr.add("Season"); arr.add("Fall"); arr.add("Spring"); arr.add("Summer");
+        arr.add("Season");
+        arr.add("Fall");
+        arr.add("Spring");
+        arr.add("Summer");
         seasonMenu.getItems().addAll(arr);
         seasonMenu.setDisable(false);
         seasonMenu.setValue("Season");
@@ -78,69 +89,77 @@ public class guiController {
 
     }
 
-    //populate lists
-    public void updateLists(){
-        //repopulate list
-        ObservableList<Semester> listContent = FXCollections.observableList(acc.getManager().getSchedule().getSemesters());
+    // populate lists
+    public void updateLists() {
+        // repopulate list
+        ObservableList<Semester> listContent = FXCollections
+                .observableList(acc.getManager().getSchedule().getSemesters());
         semesterList.setItems(listContent);
         loadCurrentCourses();
         loadUnassignedCourses();
     }
 
-    public void loadCurrentCourses(){
+    public void loadCurrentCourses() {
         Semester s = semesterList.getSelectionModel().getSelectedItem();
         ObservableList<Course> listContent = FXCollections.observableList(s.getCourses());
         currentCourseList.setItems(listContent);
     }
 
-    public void loadUnassignedCourses(){
+    public void loadUnassignedCourses() {
 
         ArrayList<Course> newlist = new ArrayList<Course>();
-        for(Course c : acc.getManager().getSchedule().getUnassignedCourses()){
+        for (Course c : acc.getManager().getSchedule().getUnassignedCourses()) {
             newlist.add(c);
         }
         String searchbox = search.getText();
-        for(Course c : acc.getManager().getSchedule().getUnassignedCourses()){
-            if(!(c.toString().toLowerCase().contains(searchbox.toLowerCase()) || c.getDescription().toLowerCase().contains(searchbox.toLowerCase())))
+        for (Course c : acc.getManager().getSchedule().getUnassignedCourses()) {
+            if (!(c.toString().toLowerCase().contains(searchbox.toLowerCase())
+                    || c.getDescription().toLowerCase().contains(searchbox.toLowerCase())))
                 newlist.remove(c);
         }
         ObservableList<Course> listContent = FXCollections.observableList(newlist);
         unassignedCourseList.setItems(listContent);
     }
 
-    public void loadCCourseInfo(){
+    public void loadCCourseInfo() {
         Course c = currentCourseList.getSelectionModel().getSelectedItem();
         detailsPane.setPrefRowCount(5);
         detailsPane.setText("Course: " + c + "\n\n" + "Description: \n" + c.getDescription());
     }
 
-    public void loadUCourseInfo(){
+    public void loadUCourseInfo() {
         Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
         detailsPane.setPrefRowCount(5);
         detailsPane.setText("Course: " + c + "\n\n" + "Description: \n" + c.getDescription());
     }
 
-    //handles new user registration
-    public void register(){
-        System.out.println("user attempted to register");
+    // handles new user registration
+    public void register() throws IOException {
+        acc = DatabaseHandler.registerAccount(usrField.getText(), pwdField.getText());
+        if(acc!=null)
+            loginInit(acc);
+        else{
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Login failed. Username is taken or a required field is empty.");
+        }
     }
 
-    //onclick semester tab
-    public void semesterTabController(){
+    // onclick semester tab
+    public void semesterTabController() {
     }
 
-    //onclick course tab
-    public void courseTabController(){
+    // onclick course tab
+    public void courseTabController() {
         detailsPane.setPrefRowCount(1);
         detailsPane.setText("Listing all courses in selected semester");
     }
 
-    //onclick notes tab
-    public void notesTabController(){
+    // onclick notes tab
+    public void notesTabController() {
         detailsPane.setText("");
-        if(acc.getManager() != null)
+        if (acc.getManager() != null)
             noteField.setText(acc.getManager().getNotes());
-        else{
+        else {
             detailsPane.setVisible(true);
             detailsPane.setPrefRowCount(1);
             detailsPane.setText("Login to use notes.");
@@ -148,69 +167,63 @@ public class guiController {
 
     }
 
-    public void scheduleTabController(){
+    public void scheduleTabController() {
         ArrayList<Integer> list = new ArrayList<Integer>();
-        for(Semester s : acc.getManager().getSchedule().getSemesters()){
+        for (Semester s : acc.getManager().getSchedule().getSemesters()) {
             list.add(s.getYear());
         }
         ArrayList<Integer> newlist = new ArrayList<Integer>();
-        for(int year : list){
-            if(!newlist.contains(year))
+        for (int year : list) {
+            if (!newlist.contains(year))
                 newlist.add(year);
         }
 
-        for(int i = 0; i<newlist.size(); i++){
+        for (int i = 0; i < newlist.size(); i++) {
             scheduleGrid.addColumn(i, new Label(newlist.get(i).toString()));
         }
     }
 
-    //onclick save note button
-    public void saveNotes(){
-        if(acc.getManager() != null)
+    // onclick save note button
+    public void saveNotes() {
+        if (acc.getManager() != null)
             acc.getManager().saveNotes(noteField.getText());
-        else{
+        else {
             detailsPane.setVisible(true);
             detailsPane.setPrefRowCount(1);
             detailsPane.setText("Login to use notes.");
         }
     }
 
-    public void addSemester(){
+    public void addSemester() {
         String season = seasonMenu.getValue();
         int year = Integer.parseInt(yearField.getText());
         acc.getManager().getSchedule().addSemester(new Semester(season, year));
         updateLists();
     }
 
-    public void removeCourse(){
+    public void removeCourse() {
         Course c = currentCourseList.getSelectionModel().getSelectedItem();
         Semester s = semesterList.getSelectionModel().getSelectedItem();
         acc.getManager().getSchedule().removeCourse(s, c);
         updateLists();
     }
 
-    public void addCourse(){
+    public void addCourse() {
         Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
         Semester s = semesterList.getSelectionModel().getSelectedItem();
         acc.getManager().getSchedule().addCourse(s, c);
         updateLists();
     }
 
-    public void searchUnassigned(){
-        String searchTxt = search.getText();
-
-
-    }
-
-    public void logout(){
+    public void logout() {
         semAddButton.setDisable(true);
         yearField.setDisable(true);
         seasonMenu.setDisable(true);
+        acc = null;
         menuContainer.getChildren().add(loginBar);
         seasonMenu.setDisable(true);
         courseAddButton.setDisable(true);
         removeCourse.setDisable(true);
-        acc = null;
         semesterList.getItems().clear();
         currentCourseList.getItems().clear();
         unassignedCourseList.getItems().clear();
@@ -220,15 +233,22 @@ public class guiController {
         pwdField.setText("");
     }
 
-    public void saveAccount(){
-        
-
-
+    public void saveAccount() throws IOException {
+        DatabaseHandler.saveAccount(acc);
     }
 
-    public void calcSchedule(){
+    public void calcSchedule() {
+        if(acc.getManager().getSchedule().getMajor() == null){
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Select a Major first.");
+            return;
+        }
         acc.getManager().calculateSchedule(acc.getManager().getSchedule());
         updateLists();
+    }
+
+    public void setMajorCS(){
+        acc.getManager().getSchedule().setMajor(new IT());
     }
 
 }

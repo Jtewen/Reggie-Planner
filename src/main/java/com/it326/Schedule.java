@@ -143,8 +143,17 @@ public class Schedule implements Serializable {
             unassignedCourses.remove(c);
     }
 
+    public void addCourseExplicit(Semester s, Course c) {
+        if (s.addCourse(c)){
+            c.setCmpleted(true);
+            unassignedCourses.remove(c);
+        }
+
+    }
+
     public void removeCourse(Semester s, Course c) {
         s.removeCourse(c);
+        c.setCmpleted(false);
         System.out.println("Removed " + c);
         unassignedCourses.add(c);
         Collections.sort(unassignedCourses);

@@ -11,7 +11,8 @@ public class ScheduleManager implements Serializable {
         sched = new Schedule();
     }
 
-    public void calculateSchedule(Schedule s) {
+    public void calculateAllSchedule(Schedule s) {
+        clearPlanning();
         List<Course> temp = new ArrayList<Course>();
         for (Course c : s.getUnassignedCourses()) {
             temp.add(c);
@@ -44,6 +45,32 @@ public class ScheduleManager implements Serializable {
 
     }
 
+    public void calculateCurrentSchedule(Schedule s) {
+        clearPlanning();
+        List<Course> temp = new ArrayList<Course>();
+        for (Course c : s.getUnassignedCourses()) {
+            temp.add(c);
+        }
+        for (Course c : s.getUnassignedCourses()) {
+            for (Semester sem : s.getSemesters()) {
+                boolean readyToAdd = true;
+                for (Course pre : c.getPreReqs()) {
+                    // if all prereqs are assigned
+                    if (temp.contains(pre)) {
+                        readyToAdd = false;
+                    }
+                }
+                System.out.println(c);
+                System.out.println(sem);
+                if (readyToAdd && sem.addCourse(c)) {
+                    temp.remove(c);
+                    break;
+                }
+            }
+        }
+            s.setUnassignedCourses(temp);
+    }
+
     public void clearPlanning() {
         for (Semester s : sched.getSemesters()) {
             for (Course c : s.getCourses()) {
@@ -51,10 +78,6 @@ public class ScheduleManager implements Serializable {
                     s.removeCourse(c);
             }
         }
-    }
-
-    public void calculateSchedule(Schedule sched, int ver) {
-
     }
 
     public void filterClass() {

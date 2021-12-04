@@ -1,18 +1,27 @@
 package com.it326;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 import com.it326.Majors.IT;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class guiController {
 
@@ -43,13 +52,16 @@ public class guiController {
     @FXML
     private Button removeCourse;
     @FXML
-    private ChoiceBox<String> seasonMenu;
-    @FXML
-    private TextField yearField;
-    @FXML
     private TextField search;
+    @FXML
+    private ChoiceBox<String> seasonChoice;
+    @FXML
+    private ChoiceBox<Integer> yearChoice;
+    @FXML
+    private ContextMenu semContext;
 
     private Account acc;
+
 
     // login button clicked check if it matches anything in account list
     public void attemptLogin() {
@@ -67,22 +79,12 @@ public class guiController {
 
     // initialization code on login
     private void loginInit(Account a) {
+        DatabaseHandler.currentAccount = a;
         detailsPane.setPrefRowCount(1);
         detailsPane.setText("Login successful. Welcome " + a.getUsername() + ".");
         menuContainer.getChildren().remove(loginBar);
         noteField.setDisable(false);
         noteField.setPromptText("Type to take notes");
-        semAddButton.setDisable(false);
-        yearField.setDisable(false);
-        seasonMenu.setDisable(false);
-        ArrayList<String> arr = new ArrayList<String>();
-        arr.add("Season");
-        arr.add("Fall");
-        arr.add("Spring");
-        arr.add("Summer");
-        seasonMenu.getItems().addAll(arr);
-        seasonMenu.setDisable(false);
-        seasonMenu.setValue("Season");
         courseAddButton.setDisable(false);
         removeCourse.setDisable(false);
         updateLists();
@@ -103,6 +105,23 @@ public class guiController {
         Semester s = semesterList.getSelectionModel().getSelectedItem();
         ObservableList<Course> listContent = FXCollections.observableList(s.getCourses());
         currentCourseList.setItems(listContent);
+        currentCourseList.setCellFactory(cell -> {
+            return new ListCell<Course>() {
+                @Override
+                protected void updateItem(Course item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(item.toString());
+                        if(item.getCmpleted())
+                            setTextFill(Color.GREEN);
+                        else
+                            setTextFill(Color.BLACK);
+                    }
+                }
+            };
+        });
     }
 
     public void loadUnassignedCourses() {
@@ -194,12 +213,24 @@ public class guiController {
         }
     }
 
-    public void addSemester() {
-        String season = seasonMenu.getValue();
-        int year = Integer.parseInt(yearField.getText());
-        acc.getManager().getSchedule().addSemester(new Semester(season, year));
-        updateLists();
+    public void openSemWindow() throws IOException{
+        Stage inputStage = new Stage();
+        Parent newScene = FXMLLoader.load(getClass().getResource("New_Semester_Scene.fxml"));
+        inputStage.setTitle("Reggie Planner");
+        inputStage.setScene(new Scene(newScene));
+        inputStage.initStyle(StageStyle.UTILITY);
+        //on "add semester" window close
+        inputStage.setOnHidden(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                try{updateLists();
+                }finally{
+                    inputStage.close();
+                }
+            }
+        });  
+        inputStage.show();
     }
+
 
     public void removeCourse() {
         Course c = currentCourseList.getSelectionModel().getSelectedItem();
@@ -211,17 +242,15 @@ public class guiController {
     public void addCourse() {
         Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
         Semester s = semesterList.getSelectionModel().getSelectedItem();
-        acc.getManager().getSchedule().addCourse(s, c);
+        acc.getManager().getSchedule().addCourseExplicit(s, c);
         updateLists();
     }
 
     public void logout() {
+        DatabaseHandler.currentAccount = null;
         semAddButton.setDisable(true);
-        yearField.setDisable(true);
-        seasonMenu.setDisable(true);
         acc = null;
         menuContainer.getChildren().add(loginBar);
-        seasonMenu.setDisable(true);
         courseAddButton.setDisable(true);
         removeCourse.setDisable(true);
         semesterList.getItems().clear();
@@ -237,18 +266,37 @@ public class guiController {
         DatabaseHandler.saveAccount(acc);
     }
 
-    public void calcSchedule() {
+    public void calcAll() {
         if(acc.getManager().getSchedule().getMajor() == null){
             detailsPane.setPrefRowCount(1);
             detailsPane.setText("Select a Major first.");
             return;
         }
-        acc.getManager().calculateSchedule(acc.getManager().getSchedule());
+        acc.getManager().calculateAllSchedule(acc.getManager().getSchedule());
+        updateLists();
+    }
+
+    public void calcCurrent() {
+        if(acc.getManager().getSchedule().getMajor() == null){
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Select a Major first.");
+            return;
+        }
+        acc.getManager().calculateCurrentSchedule(acc.getManager().getSchedule());
         updateLists();
     }
 
     public void setMajorCS(){
         acc.getManager().getSchedule().setMajor(new IT());
+        updateLists();
     }
+
+    public void checkForSem(){
+        Semester selection = semesterList.getSelectionModel().getSelectedItem();
+        if(selection!=null){
+
+        }
+    }
+
 
 }

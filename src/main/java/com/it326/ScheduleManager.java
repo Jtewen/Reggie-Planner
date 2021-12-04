@@ -98,9 +98,9 @@ public class ScheduleManager implements Serializable {
 
     public void clearPlanning() {
         for (Semester s : sched.getSemesters()) {
-            for (Course c : s.getCourses()) {
-                if (!c.getCmpleted())
-                    s.removeCourse(c);
+            for (int i = 0; i < s.getCourses().size(); i++) {
+                if (!s.getCourses().get(i).getCmpleted())
+                    s.removeCourse(s.getCourses().get(i));
             }
         }
     }

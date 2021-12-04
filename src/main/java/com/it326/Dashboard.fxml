@@ -2,13 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -83,30 +84,45 @@
                            <children>
                               <VBox prefHeight="425.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Semesters">
-                                       <VBox.margin>
-                                          <Insets left="5.0" top="3.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <ListView fx:id="semesterList" onMouseClicked="#updateLists" VBox.vgrow="ALWAYS">
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Semesters">
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <Label text="Right-click to add" textFill="#a1a1a1">
+                                             <HBox.margin>
+                                                <Insets right="5.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <ListView fx:id="semesterList" onContextMenuRequested="#checkForSem" onMouseClicked="#updateLists" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin></ListView>
+                                       </VBox.margin>
+                                       <contextMenu>
+                                          <ContextMenu fx:id="semContext">
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" onAction="#openSemWindow" text="New semester" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu>
+                                    </ListView>
                                     <HBox>
                                        <children>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" onAction="#calcSchedule" text="Calc" />
-                                          <ChoiceBox fx:id="seasonMenu" disable="true">
+                                          <SplitMenuButton mnemonicParsing="false" onAction="#calcCurrent" text="Calculate">
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" onAction="#calcAll" text="Calculate all semesters" />
+                                              <MenuItem mnemonicParsing="false" onAction="#calcCurrent" text="Calculate current semesters" />
+                                            </items>
                                              <HBox.margin>
-                                                <Insets right="10.0" />
+                                                <Insets bottom="5.0" right="5.0" />
                                              </HBox.margin>
-                                          </ChoiceBox>
-                                          <TextField fx:id="yearField" disable="true" prefHeight="25.0" prefWidth="74.0" promptText="year">
-                                             <HBox.margin>
-                                                <Insets right="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                          <Button fx:id="semAddButton" disable="true" mnemonicParsing="false" onAction="#addSemester" text="Add" />
+                                          </SplitMenuButton>
                                        </children>
                                     </HBox>
                                  </children>
@@ -115,7 +131,7 @@
                                  <children>
                                     <Label text="Courses">
                                        <VBox.margin>
-                                          <Insets left="5.0" top="3.0" />
+                                          <Insets left="5.0" top="5.0" />
                                        </VBox.margin>
                                     </Label>
                                     <ListView fx:id="currentCourseList" onMouseClicked="#loadCCourseInfo" VBox.vgrow="ALWAYS">
@@ -126,7 +142,10 @@
                                     <HBox>
                                        <children>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="removeCourse" disable="true" mnemonicParsing="false" onAction="#removeCourse" text="Remove" />
+                                          <Button fx:id="removeCourse" disable="true" mnemonicParsing="false" onAction="#removeCourse" text="Remove">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" right="5.0" />
+                                             </HBox.margin></Button>
                                        </children>
                                     </HBox>
                                  </children>
@@ -135,12 +154,12 @@
                                  <children>
                                     <Label text="Unassigned Coruses">
                                        <VBox.margin>
-                                          <Insets left="5.0" top="3.0" />
+                                          <Insets left="5.0" top="5.0" />
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="search" onKeyPressed="#loadUnassignedCourses" promptText="Search">
                                        <VBox.margin>
-                                          <Insets left="5.0" right="5.0" />
+                                          <Insets left="5.0" right="5.0" top="5.0" />
                                        </VBox.margin></TextField>
                                     <ListView fx:id="unassignedCourseList" onMouseClicked="#loadUCourseInfo" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
@@ -150,7 +169,10 @@
                                     <HBox>
                                        <children>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="courseAddButton" disable="true" mnemonicParsing="false" onAction="#addCourse" text="Add to Semester" />
+                                          <Button fx:id="courseAddButton" disable="true" mnemonicParsing="false" onAction="#addCourse" text="Add to Semester">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" right="5.0" />
+                                             </HBox.margin></Button>
                                        </children>
                                     </HBox>
                                  </children>

@@ -6,6 +6,8 @@ import java.util.*;
 public class DatabaseHandler {
     
     static ArrayList<Account> accountList = new ArrayList<Account>();
+    static ArrayList<Course> courseList = new ArrayList<Course>();
+    static Account currentAccount;
 
     public static void loadAccounts() throws IOException, ClassNotFoundException{
         FileInputStream fi;

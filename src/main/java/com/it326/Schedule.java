@@ -23,12 +23,41 @@ public class Schedule {
     }
 
 
-    public void addSemester(){
-        this.semesters.add(new Semester());
+    public Semester addSemester(){
+        int year = 2020 + java.util.Calendar.YEAR;
+        String seas = "";
+        if(semesters.isEmpty())
+        {
+            if(java.util.Calendar.MONTH < 7)
+                seas = "Fall";
+            else
+            {
+                seas = "Spring";
+                year++;
+            }
+        }
+        else
+        {
+            if(semesters.get(semesters.size() - 1).getSeason() == "Spring")
+            {
+                seas = "Fall";
+                year = semesters.get(semesters.size() - 1).getYear() + 1;
+            }
+            else
+            {
+                seas = "Spring";
+                year = semesters.get(semesters.size() - 1).getYear();
+            }
+        }
+        Semester tempSem = new Semester(seas, year);
+        this.semesters.add(new Semester(seas, year));
+        Collections.sort(semesters);
+        return tempSem;
     }
 
     public void addSemester(String seas, int year){
         this.semesters.add(new Semester(seas, year));
+        Collections.sort(semesters);
     }
 
 

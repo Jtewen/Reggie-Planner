@@ -33,8 +33,7 @@ public class ScheduleManager{
                     }
                 }
                 if(temp.contains(c)){
-                    Semester tempSem = new Semester("test", 2020);
-                    sched.addSemester(tempSem);
+                    Semester tempSem = sched.addSemester();
                     tempSem.addCourse(c);
                     temp.remove(c);
                 }
@@ -42,6 +41,16 @@ public class ScheduleManager{
             s.setUnassignedCourses(temp);
         }
         
+    }
+
+    public void clearPlanning()
+    {
+        for(Semester s : sched.getSemesters()){
+            for(Course c : s.getCourses()){
+                if(!c.getCmpleted())
+                    s.removeCourse(c);
+            }
+        }
     }
 
     public void calculateSchedule(Schedule sched, int ver){

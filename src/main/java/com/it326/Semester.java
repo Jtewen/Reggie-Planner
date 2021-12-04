@@ -92,14 +92,14 @@ public class Semester implements Comparable<Semester> {
         int thisSeason = 0;
         int oseason = 0;
         switch(this.season){
-            case "Fall": thisSeason = 0;
-            case "Spring": thisSeason = 1;
-            case "Summer": thisSeason = 2;
+            case "Fall": thisSeason = 2;
+            case "Spring": thisSeason = 0;
+            case "Summer": thisSeason = 1;
         }
         switch(o.season){
-            case "Fall": oseason = 0;
-            case "Spring": oseason = 1;
-            case "Summer": oseason = 2;
+            case "Fall": oseason = 2;
+            case "Spring": oseason = 0;
+            case "Summer": oseason = 1;
         }
         return (this.year*1000-o.year*1000)+(thisSeason-oseason);
     }

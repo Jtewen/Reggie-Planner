@@ -48,6 +48,8 @@ public class csvTest {
             e.printStackTrace();
         }
         System.out.println(requiredCourses);
+
+        System.out.println(requiredCourses.get(5).getPreReqs());
     }
 
     public static void addParents(List<Course> nodes) {

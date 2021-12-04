@@ -32,6 +32,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
         </dependency>
+    
+      <dependency>
+        <groupId>com.dukescript.nbjavac</groupId>
+        <artifactId>nb-javac</artifactId>
+        <version>jdk-17+35</version>
+      </dependency>
     </dependencies>
     <build>
         <plugins>

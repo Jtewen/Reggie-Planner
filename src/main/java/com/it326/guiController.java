@@ -28,6 +28,10 @@ public class guiController {
     @FXML
     private TextField pwdField;
     @FXML
+    private TextField newpwdField;
+    @FXML
+    private TextField conNewPwdField;
+    @FXML
     private TextArea detailsPane;
     @FXML
     private HBox loginBar;
@@ -260,13 +264,40 @@ public class guiController {
         pwdField.setText("");
     }
 
+
     public void saveAccount() throws IOException {
         DatabaseHandler.saveAccount(acc);
     }
 
     public void changePassword() throws IOException{
-        
+        String password = acc.getPassword();
+        int n = 3;
+  while (n-- > 0) {
+    if(password.equals(acc.getPassword())) {
+        String newPass = newpwdField.getText(); // get new password from user
+
+        String conNewPass = conNewPwdField.getText(); // confirm new password from user
+
+        if (newPass.equals(conNewPass)) {
+            password = newPass;
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Password Successfully Changed!");// password changed
+        } else {
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Wrong confirmation. Please try again.");// wrong confirmation.. password not changed
+        }
     }
+    else {
+        password = pwdField.getText(); // ask user for old password again
+
+    }
+  }
+  // show error message that user entered the old password 3 times incorrectly
+  detailsPane.setPrefRowCount(1);
+  detailsPane.setText("Change password failed. Too many atempts were made, please try again later."); 
+    }
+
+
 
     public void calcAll() {
         if(acc.getManager().getSchedule().getMajor() == null){

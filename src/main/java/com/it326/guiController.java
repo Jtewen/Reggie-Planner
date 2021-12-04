@@ -18,18 +18,17 @@ public class guiController {
     @FXML private TextArea detailsPane;
     @FXML private HBox loginBar;
     @FXML private VBox menuContainer;
-    @FXML private GridPane semesterGrid;
-    @FXML private GridPane courseGrid;
+    @FXML private GridPane scheduleGrid;
     @FXML private TextArea noteField;
     @FXML private ListView<Semester> semesterList;
     @FXML private ListView<Course> currentCourseList;
     @FXML private ListView<Course> unassignedCourseList;
-    @FXML private TextField test;
     @FXML private Button semAddButton;
     @FXML private Button courseAddButton;
     @FXML private Button removeCourse;
     @FXML private ChoiceBox<String> seasonMenu;
     @FXML private TextField yearField;
+    @FXML private TextField search;
 
     private Account acc;
 
@@ -90,7 +89,17 @@ public class guiController {
     }
 
     public void loadUnassignedCourses(){
-        ObservableList<Course> listContent = FXCollections.observableList(acc.getManager().getSchedule().getUnassignedCourses());
+
+        ArrayList<Course> newlist = new ArrayList<Course>();
+        for(Course c : acc.getManager().getSchedule().getUnassignedCourses()){
+            newlist.add(c);
+        }
+        String searchbox = search.getText();
+        for(Course c : acc.getManager().getSchedule().getUnassignedCourses()){
+            if(!(c.toString().toLowerCase().contains(searchbox.toLowerCase()) || c.getDescription().toLowerCase().contains(searchbox.toLowerCase())))
+                newlist.remove(c);
+        }
+        ObservableList<Course> listContent = FXCollections.observableList(newlist);
         unassignedCourseList.setItems(listContent);
     }
 
@@ -134,6 +143,22 @@ public class guiController {
 
     }
 
+    public void scheduleTabController(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(Semester s : acc.getManager().getSchedule().getSemesters()){
+            list.add(s.getYear());
+        }
+        ArrayList<Integer> newlist = new ArrayList<Integer>();
+        for(int year : list){
+            if(!newlist.contains(year))
+                newlist.add(year);
+        }
+
+        for(int i = 0; i<newlist.size(); i++){
+            scheduleGrid.addColumn(i, new Label(newlist.get(i).toString()));
+        }
+    }
+
     //onclick save note button
     public void saveNotes(){
         if(acc.getManager() != null)
@@ -165,4 +190,11 @@ public class guiController {
         acc.getManager().getSchedule().addCourse(s, c);
         updateLists();
     }
+
+    public void searchUnassigned(){
+        String searchTxt = search.getText();
+
+
+    }
+
 }

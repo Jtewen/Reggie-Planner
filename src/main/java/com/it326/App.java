@@ -40,7 +40,6 @@ public class App extends Application {
         accountList.add(new Account("jewen", "pwd"));
         ScheduleManager manager = accountList.get(0).getManager();
         manager.getSchedule().setMajor(new IT());
-        manager.calculateSchedule(manager.getSchedule());
         launch(args);
     }
 

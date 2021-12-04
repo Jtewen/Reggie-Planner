@@ -18,13 +18,11 @@ public class guiController {
     @FXML private TextArea detailsPane;
     @FXML private HBox loginBar;
     @FXML private VBox menuContainer;
-    @FXML private GridPane semesterGrid;
-    @FXML private GridPane courseGrid;
+    @FXML private GridPane scheduleGrid;
     @FXML private TextArea noteField;
     @FXML private ListView<Semester> semesterList;
     @FXML private ListView<Course> currentCourseList;
     @FXML private ListView<Course> unassignedCourseList;
-    @FXML private TextField test;
     @FXML private Button semAddButton;
     @FXML private Button courseAddButton;
     @FXML private Button removeCourse;
@@ -134,6 +132,22 @@ public class guiController {
 
     }
 
+    public void scheduleTabController(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(Semester s : acc.getManager().getSchedule().getSemesters()){
+            list.add(s.getYear());
+        }
+        ArrayList<Integer> newlist = new ArrayList<Integer>();
+        for(int year : list){
+            if(!newlist.contains(year))
+                newlist.add(year);
+        }
+
+        for(int i = 0; i<newlist.size(); i++){
+            scheduleGrid.addColumn(i, new Label(newlist.get(i).toString()));
+        }
+    }
+
     //onclick save note button
     public void saveNotes(){
         if(acc.getManager() != null)
@@ -165,4 +179,5 @@ public class guiController {
         acc.getManager().getSchedule().addCourse(s, c);
         updateLists();
     }
+
 }

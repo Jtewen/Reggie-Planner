@@ -86,17 +86,17 @@
                                     <HBox>
                                        <children>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ChoiceBox fx:id="seasonMenu">
+                                          <ChoiceBox fx:id="seasonMenu" disable="true">
                                              <HBox.margin>
                                                 <Insets right="10.0" />
                                              </HBox.margin>
                                           </ChoiceBox>
-                                          <TextField prefHeight="25.0" prefWidth="74.0" promptText="year">
+                                          <TextField fx:id="yearField" disable="true" prefHeight="25.0" prefWidth="74.0" promptText="year">
                                              <HBox.margin>
                                                 <Insets right="10.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button mnemonicParsing="false" onAction="#addSemester" text="Add" />
+                                          <Button fx:id="semAddButton" disable="true" mnemonicParsing="false" onAction="#addSemester" text="Add" />
                                        </children>
                                     </HBox>
                                  </children>

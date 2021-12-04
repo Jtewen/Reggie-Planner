@@ -57,7 +57,6 @@ public class guiController {
         noteField.setPromptText("Type to take notes");
         acc = a;
 
-
         semAddButton.setDisable(false);
         yearField.setDisable(false);
         seasonMenu.setDisable(false);
@@ -66,6 +65,7 @@ public class guiController {
         seasonMenu.getItems().addAll(arr);
         seasonMenu.setDisable(false);
         loadSemesters();
+
     }
 
     //populate lists
@@ -101,8 +101,6 @@ public class guiController {
 
     //onclick semester tab
     public void semesterTabController(){
-        detailsPane.setPrefRowCount(1);
-        detailsPane.setText("Listing all semesters in selected schedule");
     }
 
     //onclick course tab

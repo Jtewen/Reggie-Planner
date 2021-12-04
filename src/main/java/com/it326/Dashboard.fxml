@@ -92,7 +92,7 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Label text="Right-click to add" textFill="#a1a1a1">
+                                          <Label text="Right-click to add/remove" textFill="#a1a1a1">
                                              <HBox.margin>
                                                 <Insets right="5.0" top="5.0" />
                                              </HBox.margin>

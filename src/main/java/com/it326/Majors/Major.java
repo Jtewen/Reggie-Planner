@@ -14,12 +14,14 @@ import com.opencsv.exceptions.CsvException;
 public class Major implements Serializable {
 
     String major;
+    ArrayList<String> majorNames = new ArrayList<String>();
     List<Course> requiredCourses = new ArrayList<Course>();
 
     // This is the most terrifying spaghetti constructor
     // Reads the data from ITlist.csv and populates a "tree" of courses that are
     // bound by the requiredCourses list.
     public Major(String mjr) {
+
         try {
             major = mjr;
             String path = getPath(mjr);
@@ -28,10 +30,22 @@ public class Major implements Serializable {
                 List<String[]> dataSet = csvReader.readAll();
                 dataSet.remove(0);
                 for (String[] data : dataSet) {
-                    requiredCourses.add(new Course(data[0].split(" ")[0].replace("\"", ""),
-                            Integer.parseInt(data[0].split(" ")[1].replace("\"", "")), data[1].replace("\"", ""),
-                            Integer.parseInt(data[2].replace("\"", "")), data[3].replace("\"", ""),
-                            data[4].replace("\"", "")));
+                    if(isNumeric(data[0].split(" ")[1].replace("\"", ""))){
+                        requiredCourses.add(new Course(data[0].split(" ")[0].replace("\"", ""),
+                        Integer.parseInt(data[0].split(" ")[1].replace("\"", "")),
+                        data[1].replace("\"", ""),
+                        Integer.parseInt(data[2].replace("\"", "")),
+                        data[3].replace("\"", ""),
+                        data[4].replace("\"", "")));
+                    }
+                    else{
+                        requiredCourses.add(new Course(data[0].replace("\"", ""),
+                        000,
+                        data[1].replace("\"", ""),
+                        Integer.parseInt(data[2].replace("\"", "")),
+                        data[3].replace("\"", ""),
+                        data[4].replace("\"", "")));
+                    }
 
                 }
             } catch (NumberFormatException e) {
@@ -52,12 +66,14 @@ public class Major implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(requiredCourses);
     }
 
     public String getPath(String mjr){
         switch(mjr){
-            case "Computer Science": return "src/main/java/com/it326/Majors/ITlist.csv";
-            case "Cyber Security": return "src/main/java/com/it326/Majors/CClist.csv";
+            case "Computer Science": return "src/main/java/com/it326/Majors/CSlist.csv";
+            case "Cybersecurity": return "src/main/java/com/it326/Majors/Cyberlist.csv";
+            case "Web Dev": return "src/main/java/com/it326/Majors/WDlist.csv";
             default: return null;
         }
     }
@@ -69,7 +85,7 @@ public class Major implements Serializable {
         for (Course node : nodes) {
             for (Course child : nodes) {
                 for (String name : child.getTempPreReqs()) {
-                    if ((node.getDepartment() + node.getcourseNumber()).equals(name)) {
+                    if ((node.getDepartment() + " " + node.getcourseNumber()).equals(name)) {
                         child.addPreReq(node);
                     }
                 }
@@ -90,11 +106,23 @@ public class Major implements Serializable {
         return sum;
     }
 
-    public String getMajorName(){
-        return major;
+    public ArrayList<String> getMajorNames(){
+        return majorNames;
     }
 
     public String toString(){
         return major;
+    }
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 }

@@ -11,18 +11,20 @@ public class ScheduleManager{
     }
 
     public void calculateSchedule(Schedule s){
-        boolean flag = true;
-        boolean readyToAdd = true;
+        sched.addSemester("Fall", 2022);
+        sched.addSemester("Spring", 2022);
+        sched.addSemester("Fall", 2023);
         List<Course> temp = new ArrayList<Course>();
         for(Course c : s.getUnassignedCourses()){
             temp.add(c);
         }
-        while(!temp.isEmpty() && flag){
+        while(!temp.isEmpty()){
             for(Course c : s.getUnassignedCourses()){
                 for(Semester sem : s.getSemesters()){
+                    boolean readyToAdd = true;
                     for(Course pre : c.getPreReqs()){
                         //if all prereqs are assigned
-                        if(s.getUnassignedCourses().contains(pre)){
+                        if(temp.contains(pre)){
                             readyToAdd = false;
                         }
                     }
@@ -32,12 +34,12 @@ public class ScheduleManager{
                         temp.remove(c);
                         break;
                     }
-
                 }
                 if(temp.contains(c)){
-                    System.out.println("Not enough semesters to fit");
-                    flag = false;
-                    break;
+                    Semester tempSem = new Semester("test", 2020);
+                    sched.addSemester(tempSem);
+                    tempSem.addCourse(c);
+                    temp.remove(c);
                 }
             }
             s.setUnassignedCourses(temp);

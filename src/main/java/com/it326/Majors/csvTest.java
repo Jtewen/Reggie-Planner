@@ -17,17 +17,30 @@ public class csvTest {
 
     public static void main(String[] args){
         List<Course> requiredCourses = new ArrayList<Course>();
+
         try {
             Reader reader = Files.newBufferedReader(Paths.get("src/main/java/com/it326/Majors/CSlist.csv"));
             try (CSVReader csvReader = new CSVReader(reader)) {
                 List<String[]> dataSet = csvReader.readAll();
                 dataSet.remove(0);
                 for (String[] data : dataSet) {
-                    requiredCourses.add(new Course(data[0].split(" ")[0].replace("\"", ""),
-                            Integer.parseInt(data[0].split(" ")[1].replace("\"", "")), data[1].replace("\"", ""),
-                            Integer.parseInt(data[2].replace("\"", "")), data[3].replace("\"", ""),
-                            data[4].replace("\"", "")));
-    
+                    if(isNumeric(data[0].split(" ")[1].replace("\"", ""))){
+                        requiredCourses.add(new Course(data[0].split(" ")[0].replace("\"", ""),
+                        Integer.parseInt(data[0].split(" ")[1].replace("\"", "")),
+                        data[1].replace("\"", ""),
+                        Integer.parseInt(data[2].replace("\"", "")),
+                        data[3].replace("\"", ""),
+                        data[4].replace("\"", "")));
+                    }
+                    else{
+                        requiredCourses.add(new Course(data[0].replace("\"", ""),
+                        000,
+                        data[1].replace("\"", ""),
+                        Integer.parseInt(data[2].replace("\"", "")),
+                        data[3].replace("\"", ""),
+                        data[4].replace("\"", "")));
+                    }
+
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -42,7 +55,7 @@ public class csvTest {
                     }
                 }
             }
-    
+
             addParents(requiredCourses);
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,6 +75,18 @@ public class csvTest {
                 }
             }
         }
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
     
 }

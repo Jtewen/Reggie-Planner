@@ -6,6 +6,7 @@ import com.it326.Majors.Major;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
 public class guiMajorController {
     
@@ -22,5 +23,7 @@ public class guiMajorController {
         String major = majorList.getSelectionModel().getSelectedItem();
         Account acc = DatabaseHandler.currentAccount;
         acc.getManager().getSchedule().setMajor(new Major(major));
+        Stage stage = (Stage) majorList.getScene().getWindow();
+        stage.close();
     }
 }

@@ -13,7 +13,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </ListView>
-      <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#setMajor" text="Button">
+      <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#setMajor" text="Select">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </VBox.margin>

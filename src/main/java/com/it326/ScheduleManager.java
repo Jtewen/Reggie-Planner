@@ -43,6 +43,16 @@ public class ScheduleManager{
         
     }
 
+    public void clearPlanning()
+    {
+        for(Semester s : sched.getSemesters()){
+            for(Course c : s.getCourses()){
+                if(!c.getCmpleted())
+                    s.removeCourse(c);
+            }
+        }
+    }
+
     public void calculateSchedule(Schedule sched, int ver){
 
     }

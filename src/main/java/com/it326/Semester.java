@@ -1,10 +1,12 @@
 package com.it326;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class Semester {
+public class Semester implements Comparable<Semester> {
     private int maxCreds;
     private int year;
     private String season;
@@ -83,6 +85,23 @@ public class Semester {
 
     public String toString(){
         return season+" "+year+ " Semester";
+    }
+
+    @Override
+    public int compareTo(Semester o) {
+        int thisSeason = 0;
+        int oseason = 0;
+        switch(this.season){
+            case "Fall": thisSeason = 0;
+            case "Spring": thisSeason = 1;
+            case "Summer": thisSeason = 2;
+        }
+        switch(o.season){
+            case "Fall": oseason = 0;
+            case "Spring": oseason = 1;
+            case "Summer": oseason = 2;
+        }
+        return (this.year*1000-o.year*1000)+(thisSeason-oseason);
     }
 
 }

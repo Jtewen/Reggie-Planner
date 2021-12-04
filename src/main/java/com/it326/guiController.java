@@ -197,4 +197,26 @@ public class guiController {
 
     }
 
+    public void logout(){
+        semAddButton.setDisable(true);
+        yearField.setDisable(true);
+        seasonMenu.setDisable(true);
+        menuContainer.getChildren().add(loginBar);
+        seasonMenu.setDisable(true);
+        courseAddButton.setDisable(true);
+        removeCourse.setDisable(true);
+        acc = null;
+        semesterList.getItems().clear();
+        currentCourseList.getItems().clear();
+        unassignedCourseList.getItems().clear();
+        detailsPane.setPrefRowCount(1);
+        detailsPane.setText("Logged out.");
+        usrField.setText("");
+        pwdField.setText("");
+    }
+
+    public void saveAccount(){
+        
+    }
+
 }

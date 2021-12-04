@@ -2,7 +2,6 @@ package com.it326;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,13 +21,14 @@ public class guiController {
     @FXML private GridPane semesterGrid;
     @FXML private GridPane courseGrid;
     @FXML private TextArea noteField;
-    @FXML private ListView<Schedule> scheduleList;
     @FXML private ListView<Semester> semesterList;
     @FXML private ListView<Course> courseList;
+    @FXML private TextField test;
+    @FXML private Button semAddButton;
+    @FXML private ChoiceBox<String> seasonMenu;
+    @FXML private TextField yearField;
 
-
-    private ScheduleManager manager;
-
+    private Account acc;
 
     //login button clicked check if it matches anything in account list
     public void attemptLogin(){
@@ -47,29 +47,33 @@ public class guiController {
             detailsPane.setText("Invalid username/password");
             pwdField.setText("");
         }
+
     }
 
     private void loginInit(Account a){
-        detailsPane.setText("Login successful. Welcome " + a.getFirstName() + ".");
+        detailsPane.setText("Login successful. Welcome " + a.getUsername() + ".");
         menuContainer.getChildren().remove(loginBar);
         noteField.setDisable(false);
         noteField.setPromptText("Type to take notes");
-        manager = a.getManager();
-        loadSchedules();
+        acc = a;
+
+
+        semAddButton.setDisable(false);
+        yearField.setDisable(false);
+        seasonMenu.setDisable(false);
+        ArrayList<String> arr = new ArrayList<String>();
+        arr.add("Fall"); arr.add("Spring"); arr.add("Summer");
+        seasonMenu.getItems().addAll(arr);
+        seasonMenu.setDisable(false);
+        loadSemesters();
     }
 
-    //These update the graphical grids based on what is selected
-    public void loadSchedules(){
-        ObservableList<Schedule> listContent = FXCollections.observableList(manager.getSchedules());
-        scheduleList.setItems(listContent);
-    }
-
+    //populate lists
     public void loadSemesters(){
         //repopulate list
-        Schedule s = scheduleList.getSelectionModel().getSelectedItem();
         detailsPane.setPrefRowCount(1);
-        detailsPane.setText("Selected " + s);
-        ObservableList<Semester> listContent = FXCollections.observableList(s.getSemesters());
+        detailsPane.setText("Selected");
+        ObservableList<Semester> listContent = FXCollections.observableList(acc.getManager().getSchedule().getSemesters());
         System.out.println(listContent);
         semesterList.setItems(listContent);
 
@@ -95,11 +99,6 @@ public class guiController {
         System.out.println("user attempted to register");
     }
 
-    //Onclick schedule tab
-    public void scheduleTabController(){
-
-    }
-
     //onclick semester tab
     public void semesterTabController(){
         detailsPane.setPrefRowCount(1);
@@ -115,8 +114,8 @@ public class guiController {
     //onclick notes tab
     public void notesTabController(){
         detailsPane.setText("");
-        if(manager != null)
-            noteField.setText(manager.getNotes());
+        if(acc.getManager() != null)
+            noteField.setText(acc.getManager().getNotes());
         else{
             detailsPane.setVisible(true);
             detailsPane.setPrefRowCount(1);
@@ -127,12 +126,17 @@ public class guiController {
 
     //onclick save note button
     public void saveNotes(){
-        if(manager != null)
-            manager.saveNotes(noteField.getText());
+        if(acc.getManager() != null)
+            acc.getManager().saveNotes(noteField.getText());
         else{
             detailsPane.setVisible(true);
             detailsPane.setPrefRowCount(1);
             detailsPane.setText("Login to use notes.");
         }
+    }
+
+    public void addSemester(){
+
+
     }
 }

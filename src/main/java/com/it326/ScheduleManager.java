@@ -3,16 +3,11 @@ package com.it326;
 import java.util.*;
 
 public class ScheduleManager{
-    List<Schedule> schedules = new ArrayList<Schedule>();
+    Schedule sched;
     String notes;
 
     public ScheduleManager(){
-        
-    }
-
-    public void addSchedule(String n){
-
-        schedules.add(new Schedule(n));
+        sched = new Schedule();
     }
 
     public void calculateSchedule(Schedule s){
@@ -45,8 +40,9 @@ public class ScheduleManager{
                     break;
                 }
             }
+            s.setUnassignedCourses(temp);
         }
-        s.setUnassignedCourses(temp);
+        
     }
 
     public void calculateSchedule(Schedule sched, int ver){
@@ -70,8 +66,8 @@ public class ScheduleManager{
     }
 
 
-    public List<Schedule> getSchedules(){
-        return schedules;
+    public Schedule getSchedule(){
+        return sched;
     }
 
     public void saveNotes(String notes){

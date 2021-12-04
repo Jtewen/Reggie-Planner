@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -73,28 +74,31 @@
    <center>
       <TabPane minHeight="0.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id="scheduleTab" onSelectionChanged="#scheduleTabController" text="Schedules">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0">
-                     <children>
-                        <VBox>
-                           <children>
-                              <ListView fx:id="scheduleList" onMouseClicked="#loadSemesters" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
           <Tab fx:id="semesterTab" onSelectionChanged="#semesterTabController" text="Semesters">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
                         <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox>
+                              <VBox prefHeight="425.0" prefWidth="220.0">
                                  <children>
                                     <ListView fx:id="semesterList" onMouseClicked="#loadCourses" />
+                                    <HBox>
+                                       <children>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <ChoiceBox fx:id="seasonMenu">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                          <TextField prefHeight="25.0" prefWidth="74.0" promptText="year">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button mnemonicParsing="false" onAction="#addSemester" text="Add" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <GridPane fx:id="semesterGrid" HBox.hgrow="ALWAYS">

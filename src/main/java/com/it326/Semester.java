@@ -6,14 +6,18 @@ import java.util.List;
 
 public class Semester {
     private int maxCreds;
-    private Date semesterStart, semesterEnd;
+    private int year;
+    private String season;
     private List<Course> courses = new ArrayList<Course>();
     private boolean completed;
 
     public Semester(){
         maxCreds = 15;
-        semesterStart = null;
-        semesterEnd = null;
+    }
+
+    public Semester(String seas, int y){
+        season = seas;
+        year = y;
     }
 
     public boolean addCourse(Course c){
@@ -41,21 +45,6 @@ public class Semester {
         this.maxCreds = maxCreds;
     }
 
-    public Date getSemesterStart(){
-        return semesterStart;
-    }
-
-    public Date setSemesterStart(Date semesterStart){
-        return semesterStart;
-    }
-
-    public Date getSemesterEnd(){
-        return semesterEnd;
-    }
-
-    public Date setSemesterEnd(Date semesterEnd){
-        return semesterEnd;
-    }
 
     public boolean isCompleted(){
         return completed;
@@ -69,8 +58,24 @@ public class Semester {
         return courses;
     }
 
+    public void setYear(int y){
+        year = y;
+    }
+
+    public int getYear(){
+        return year;
+    }
+
+    public void setSeason(String s){
+        season = s;
+    }
+
+    public String getSeason(){
+        return season;
+    }
+
     public String toString(){
-        return "Semester";
+        return season+" "+year+ " Semester";
     }
 
 }

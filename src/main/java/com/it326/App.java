@@ -33,19 +33,14 @@ public class App extends Application {
         primaryStage.setTitle("Reggie Planner");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
         accountList = new ArrayList<Account>();
-        accountList.add(new Account("Jacob", "Ewen", "jewen", "pwd"));
+        accountList.add(new Account("jewen", "pwd"));
         ScheduleManager manager = accountList.get(0).getManager();
-        manager.addSchedule("First Sched");
-        manager.getSchedules().get(0).setMajor(new IT());
-        manager.getSchedules().get(0).addSemester();
-        manager.calculateSchedule(manager.getSchedules().get(0));
-
-        
+        manager.getSchedule().setMajor(new IT());
+        manager.calculateSchedule(manager.getSchedule());
         launch(args);
     }
 

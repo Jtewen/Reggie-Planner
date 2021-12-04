@@ -3,26 +3,13 @@ package com.it326;
 public class Account {
 
     ScheduleManager manager;
-    String lastName;
-    String firstName;
     String username;
     String password;
 	String notes;
 
 // Constructor
-    public Account()
-    {
-        manager = new ScheduleManager();
-        firstName = "";
-        lastName = "";
-        username = "";
-        password = "";
-    }
-
-	public Account(String fname, String lname, String uname, String pwd){
+	public Account(String uname, String pwd){
 		manager = new ScheduleManager();
-		firstName = fname.trim();
-		lastName = lname.trim();
 		username = uname.trim();
 		password = pwd.trim();
 	}
@@ -34,22 +21,6 @@ public class Account {
 
 	public void setManager(ScheduleManager manager) {
 		this.manager = manager;
-	}
-
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 	}
 
 	public String getUsername() {

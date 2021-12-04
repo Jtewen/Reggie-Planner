@@ -120,6 +120,7 @@ public class Schedule {
     }
 
     public List<Semester> getSemesters(){
+        Collections.sort(semesters);
         return semesters;
     }
 

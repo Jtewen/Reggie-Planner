@@ -1,9 +1,9 @@
-com\it326\Majors\IT.class
 com\it326\Semester.class
+com\it326\guiController$3.class
 com\it326\guiController$2.class
-com\it326\Majors\csvtest.class
 com\it326\Course.class
 com\it326\Account.class
+com\it326\guiMajorController.class
 com\it326\ScheduleManager.class
 com\it326\guiSemController.class
 com\it326\guiController.class
@@ -11,6 +11,7 @@ com\it326\Majors\Major.class
 com\it326\App.class
 com\it326\DatabaseHandler.class
 com\it326\Schedule.class
+com\it326\Majors\csvTest.class
 module-info.class
 com\it326\StudentInfo.class
 com\it326\guiController$1.class

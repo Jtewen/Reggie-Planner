@@ -31,10 +31,11 @@ public class ScheduleManager implements Serializable {
                     }
                 }
                 for (Semester sem : s.getSemesters()) {
-                    for (Course pre : sem.getCourses()) {
+                    for (Course pre : c.getPreReqs()) {
                         // if all prereqs are assigned
-                        if (temp.contains(pre)) {
-                            readyToAdd = false;
+                        for(Course check : sem.getCourses()){
+                            if(check==pre)
+                                readyToAdd = false;
                         }
                     }
                     System.out.println(c);
@@ -50,7 +51,6 @@ public class ScheduleManager implements Serializable {
                     Semester tempSem = sched.addSemester();
                     tempSem.addCourse(c);
                     temp.remove(c);
-                    break;
                 }
             }
             s.setUnassignedCourses(temp);
@@ -100,7 +100,7 @@ public class ScheduleManager implements Serializable {
         for (Semester s : sched.getSemesters()) {
             for (int i = 0; i < s.getCourses().size(); i++) {
                 if (!s.getCourses().get(i).getCmpleted())
-                    s.removeCourse(s.getCourses().get(i));
+                    sched.removeCourse(s, s.getCourses().get(i));
             }
         }
     }

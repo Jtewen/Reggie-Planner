@@ -246,7 +246,6 @@ public class guiController {
 
     public void logout() {
         DatabaseHandler.currentAccount = null;
-        semAddButton.setDisable(true);
         acc = null;
         menuContainer.getChildren().add(loginBar);
         courseAddButton.setDisable(true);
@@ -303,7 +302,7 @@ public class guiController {
     }
 
     public void setMinor(){
-        
+
     }
 
     public void checkForSem(){

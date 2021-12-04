@@ -3,7 +3,7 @@ package com.it326;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course{
+public class Course implements Comparable<Course>{
     private String department, description;
     private int courseNumber, credits;
     private String[] tempReqs;
@@ -72,6 +72,11 @@ public class Course{
 
     public String toString(){
         return department+courseNumber;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return this.getcourseNumber()-o.getcourseNumber();
     }
 
 }

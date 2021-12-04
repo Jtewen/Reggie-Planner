@@ -112,4 +112,17 @@ public class Schedule {
         return getName();
     }
 
+    public void addCourse(Semester s, Course c){
+        if(s.addCourse(c))
+            unassignedCourses.remove(c);
+    }
+
+    public void removeCourse(Semester s, Course c){
+        s.removeCourse(c);
+        System.out.println("Removed "+c);
+        unassignedCourses.add(c);
+        Collections.sort(unassignedCourses);
+        System.out.println(unassignedCourses);
+    }
+
 }

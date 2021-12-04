@@ -22,9 +22,12 @@ public class guiController {
     @FXML private GridPane courseGrid;
     @FXML private TextArea noteField;
     @FXML private ListView<Semester> semesterList;
-    @FXML private ListView<Course> courseList;
+    @FXML private ListView<Course> currentCourseList;
+    @FXML private ListView<Course> unassignedCourseList;
     @FXML private TextField test;
     @FXML private Button semAddButton;
+    @FXML private Button courseAddButton;
+    @FXML private Button removeCourse;
     @FXML private ChoiceBox<String> seasonMenu;
     @FXML private TextField yearField;
 
@@ -61,35 +64,44 @@ public class guiController {
         yearField.setDisable(false);
         seasonMenu.setDisable(false);
         ArrayList<String> arr = new ArrayList<String>();
-        arr.add("Fall"); arr.add("Spring"); arr.add("Summer");
+        arr.add("Season"); arr.add("Fall"); arr.add("Spring"); arr.add("Summer");
         seasonMenu.getItems().addAll(arr);
         seasonMenu.setDisable(false);
-        loadSemesters();
+        seasonMenu.setValue("Season");
+        courseAddButton.setDisable(false);
+        removeCourse.setDisable(false);
+        updateLists();
 
     }
 
     //populate lists
-    public void loadSemesters(){
+    public void updateLists(){
         //repopulate list
-        detailsPane.setPrefRowCount(1);
-        detailsPane.setText("Selected");
         ObservableList<Semester> listContent = FXCollections.observableList(acc.getManager().getSchedule().getSemesters());
-        System.out.println(listContent);
         semesterList.setItems(listContent);
-
+        loadCurrentCourses();
+        loadUnassignedCourses();
     }
 
-    public void loadCourses(){
+    public void loadCurrentCourses(){
         Semester s = semesterList.getSelectionModel().getSelectedItem();
-        detailsPane.setPrefRowCount(1);
-        detailsPane.setText("Selected " + s);
         ObservableList<Course> listContent = FXCollections.observableList(s.getCourses());
-        System.out.println(listContent);
-        courseList.setItems(listContent);
+        currentCourseList.setItems(listContent);
     }
 
-    public void loadCourseInfo(){
-        Course c = courseList.getSelectionModel().getSelectedItem();
+    public void loadUnassignedCourses(){
+        ObservableList<Course> listContent = FXCollections.observableList(acc.getManager().getSchedule().getUnassignedCourses());
+        unassignedCourseList.setItems(listContent);
+    }
+
+    public void loadCCourseInfo(){
+        Course c = currentCourseList.getSelectionModel().getSelectedItem();
+        detailsPane.setPrefRowCount(5);
+        detailsPane.setText("Course: " + c + "\n\n" + "Description: \n" + c.getDescription());
+    }
+
+    public void loadUCourseInfo(){
+        Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
         detailsPane.setPrefRowCount(5);
         detailsPane.setText("Course: " + c + "\n\n" + "Description: \n" + c.getDescription());
     }
@@ -134,7 +146,23 @@ public class guiController {
     }
 
     public void addSemester(){
+        String season = seasonMenu.getValue();
+        int year = Integer.parseInt(yearField.getText());
+        acc.getManager().getSchedule().addSemester(new Semester(season, year));
+        updateLists();
+    }
 
+    public void removeCourse(){
+        Course c = currentCourseList.getSelectionModel().getSelectedItem();
+        Semester s = semesterList.getSelectionModel().getSelectedItem();
+        acc.getManager().getSchedule().removeCourse(s, c);
+        updateLists();
+    }
 
+    public void addCourse(){
+        Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
+        Semester s = semesterList.getSelectionModel().getSelectedItem();
+        acc.getManager().getSchedule().addCourse(s, c);
+        updateLists();
     }
 }

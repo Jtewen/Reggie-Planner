@@ -16,6 +16,7 @@ public class Semester {
     }
 
     public Semester(String seas, int y){
+        maxCreds = 15;
         season = seas;
         year = y;
     }

@@ -14,16 +14,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane minHeight="0.0" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.it326.guiController">
    <top>
-      <VBox fx:id="menuContainer" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuContainer" BorderPane.alignment="CENTER">
          <children>
             <MenuBar minHeight="25.0">
               <menus>
@@ -80,9 +77,12 @@
                      <children>
                         <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox prefHeight="425.0" prefWidth="220.0">
+                              <VBox prefHeight="425.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="semesterList" onMouseClicked="#loadCourses" />
+                                    <ListView fx:id="semesterList" onMouseClicked="#updateLists" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin></ListView>
                                     <HBox>
                                        <children>
                                           <Region HBox.hgrow="ALWAYS" />
@@ -101,50 +101,42 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <GridPane fx:id="semesterGrid" HBox.hgrow="ALWAYS">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
+                              <VBox prefHeight="425.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="currentCourseList" onMouseClicked="#loadCCourseInfo" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </ListView>
+                                    <HBox>
+                                       <children>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="removeCourse" disable="true" mnemonicParsing="false" onAction="#removeCourse" text="Remove" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="425.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="unassignedCourseList" onMouseClicked="#loadUCourseInfo" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </ListView>
+                                    <HBox>
+                                       <children>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="courseAddButton" disable="true" mnemonicParsing="false" onAction="#addCourse" text="Add to Semester" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="courseTab" onSelectionChanged="#courseTabController" text="Courses">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0">
-                     <children>
-                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <ListView fx:id="courseList" onMouseClicked="#loadCourseInfo" />
-                                 </children>
-                              </VBox>
-                              <GridPane fx:id="courseGrid" HBox.hgrow="ALWAYS">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
             <Tab onSelectionChanged="#notesTabController" text="Notes">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">

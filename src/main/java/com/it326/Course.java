@@ -8,6 +8,7 @@ public class Course implements Comparable<Course>{
     private int courseNumber, credits;
     private String[] tempReqs;
     private List<Course> preReqs = new ArrayList<Course>();
+    private boolean completed;
 
 
     public Course(){
@@ -29,7 +30,6 @@ public class Course implements Comparable<Course>{
 
 
     //Getters and Setters
-
     public String getDepartment(){
         return department;
     }
@@ -48,6 +48,14 @@ public class Course implements Comparable<Course>{
 
     public int getcourseNumber(){
         return courseNumber;
+    }
+    
+    public boolean getCmpleted(){
+        return completed;
+    }
+
+    public void setCmpleted(Boolean completed){
+        this.completed = completed;
     }
 
     public void setcourseNumber(int courseNumber){

@@ -27,6 +27,10 @@ public class Schedule {
         this.semesters.add(new Semester());
     }
 
+    public void addSemester(String seas, int year){
+        this.semesters.add(new Semester(seas, year));
+    }
+
 
     public void addSemester(Semester s){
         this.semesters.add(s);

@@ -22,10 +22,7 @@ public class Semester {
     }
 
     public boolean addCourse(Course c){
-        int credsLeft = maxCreds;
-        for(Course crs : courses){
-            credsLeft-=crs.getCredits();
-        }
+        int credsLeft = maxCreds - getCurrentCredits();
         if(credsLeft-c.getCredits()<0)
             return false;
         courses.add(c);
@@ -44,6 +41,15 @@ public class Semester {
 
     public void setMaxCreds(int maxCreds){
         this.maxCreds = maxCreds;
+    }
+
+    public int getCurrentCredits()
+    {
+        int temp = 0;
+        for(Course crs : courses){
+            temp += crs.getCredits();
+        }
+        return temp;
     }
 
 

@@ -264,6 +264,10 @@ public class guiController {
         DatabaseHandler.saveAccount(acc);
     }
 
+    public void changePassword() throws IOException{
+        
+    }
+
     public void calcAll() {
         if(acc.getManager().getSchedule().getMajor() == null){
             detailsPane.setPrefRowCount(1);

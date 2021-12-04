@@ -11,9 +11,6 @@ public class ScheduleManager{
     }
 
     public void calculateSchedule(Schedule s){
-        sched.addSemester("Fall", 2022);
-        sched.addSemester("Spring", 2022);
-        sched.addSemester("Fall", 2023);
         List<Course> temp = new ArrayList<Course>();
         for(Course c : s.getUnassignedCourses()){
             temp.add(c);

@@ -18,23 +18,36 @@ public class ScheduleManager implements Serializable {
             temp.add(c);
         }
         while (!temp.isEmpty()) {
+            if(s.getSemesters().size() < 1)
+            {
+                sched.addSemester();
+            }
             for (Course c : s.getUnassignedCourses()) {
+                boolean readyToAdd = true;
+                for (Course pre : c.getPreReqs()) {
+                    // if all prereqs are assigned
+                    if (temp.contains(pre)) {
+                        readyToAdd = false;
+                    }
+                }
                 for (Semester sem : s.getSemesters()) {
-                    boolean readyToAdd = true;
                     for (Course pre : c.getPreReqs()) {
                         // if all prereqs are assigned
-                        if (temp.contains(pre)) {
-                            readyToAdd = false;
+                        for(Course check : sem.getCourses()){
+                            if(check==pre)
+                                readyToAdd = false;
                         }
                     }
                     System.out.println(c);
                     System.out.println(sem);
                     if (readyToAdd && sem.addCourse(c)) {
                         temp.remove(c);
+                        readyToAdd = false;
                         break;
                     }
                 }
-                if (temp.contains(c)) {
+                if(readyToAdd)
+                {
                     Semester tempSem = sched.addSemester();
                     tempSem.addCourse(c);
                     temp.remove(c);
@@ -51,31 +64,43 @@ public class ScheduleManager implements Serializable {
         for (Course c : s.getUnassignedCourses()) {
             temp.add(c);
         }
-        for (Course c : s.getUnassignedCourses()) {
-            for (Semester sem : s.getSemesters()) {
-                boolean readyToAdd = true;
-                for (Course pre : c.getPreReqs()) {
-                    // if all prereqs are assigned
-                    if (temp.contains(pre)) {
-                        readyToAdd = false;
+        while (!temp.isEmpty()) {
+            for (Course c : s.getUnassignedCourses()) {
+                for (Semester sem : s.getSemesters()) {
+                    boolean readyToAdd = true;
+                    for (Course pre : c.getPreReqs()) {
+                        // if all prereqs are assigned
+                        if (temp.contains(pre)) {
+                            readyToAdd = false;
+                        }
+                    }
+                    for (Course pre : sem.getCourses()) {
+                        // if all prereqs are assigned
+                        if (temp.contains(pre)) {
+                            readyToAdd = false;
+                        }
+                    }
+                    System.out.println(c);
+                    System.out.println(sem);
+                    if (readyToAdd && sem.addCourse(c)) {
+                        temp.remove(c);
+                        break;
+                    }
+                    else if(readyToAdd)
+                    {
+                        temp.remove(c);
                     }
                 }
-                System.out.println(c);
-                System.out.println(sem);
-                if (readyToAdd && sem.addCourse(c)) {
-                    temp.remove(c);
-                    break;
-                }
             }
-        }
             s.setUnassignedCourses(temp);
+        }
     }
 
     public void clearPlanning() {
         for (Semester s : sched.getSemesters()) {
-            for (Course c : s.getCourses()) {
-                if (!c.getCmpleted())
-                    s.removeCourse(c);
+            for (int i = 0; i < s.getCourses().size(); i++) {
+                if (!s.getCourses().get(i).getCmpleted())
+                    sched.removeCourse(s, s.getCourses().get(i));
             }
         }
     }

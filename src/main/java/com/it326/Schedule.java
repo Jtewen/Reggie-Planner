@@ -43,7 +43,7 @@ public class Schedule implements Serializable {
             }
         }
         Semester tempSem = new Semester(seas, year);
-        this.semesters.add(new Semester(seas, year));
+        this.semesters.add(tempSem);
         Collections.sort(semesters);
         return tempSem;
     }

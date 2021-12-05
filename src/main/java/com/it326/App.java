@@ -27,7 +27,7 @@ public class App extends Application {
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         DatabaseHandler.majorNames.add("Computer Science"); DatabaseHandler.majorNames.add("Cybersecurity"); DatabaseHandler.majorNames.add("Web Dev"); 
-        DatabaseHandler.minorNames.add("Technology"); DatabaseHandler.minorNames.add("Mathematics");
+        DatabaseHandler.minorNames.add("Technology"); DatabaseHandler.minorNames.add("Mathematics"); DatabaseHandler.minorNames.add("None");
         if(new File("src/main/java/com/it326/Data/Accounts.dat").length() == 0)
             DatabaseHandler.saveAccount();
         DatabaseHandler.loadAccounts();

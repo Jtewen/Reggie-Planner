@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class guiSemController {
@@ -16,6 +17,8 @@ public class guiSemController {
     private ChoiceBox<String> seasonChoice;
     @FXML
     private ChoiceBox<Integer> yearChoice;
+    @FXML
+    private TextField maxCredField;
 
     private Account acct;
 
@@ -39,7 +42,10 @@ public class guiSemController {
     public void addSemester() {
         String season = seasonChoice.getValue();
         int year = yearChoice.getValue();
+        Semester temp = new Semester(season, year);
+        temp.setMaxCreds(Integer.parseInt(maxCredField.getText()));
         acct.getManager().getSchedule().addSemester(new Semester(season, year));
+
         Stage stage = (Stage) seasonChoice.getScene().getWindow();
         stage.close();
     }

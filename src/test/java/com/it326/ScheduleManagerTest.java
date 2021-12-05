@@ -17,7 +17,7 @@ public class ScheduleManagerTest {
         ScheduleManager t = new ScheduleManager();
         Major m = new Major("Computer Science");
         t.getSchedule().setMajor(m);
-        t.calculateAllSchedule(t.getSchedule());
+        t.calculateAllSchedule(t.getSchedule(), false);
         assertEquals(8, t.getSchedule().getSemesters().size());
     }
 
@@ -38,7 +38,7 @@ public class ScheduleManagerTest {
         ScheduleManager t = new ScheduleManager();
         Major m = new Major("Computer Science");
         t.getSchedule().setMajor(m);
-        t.calculateAllSchedule(t.getSchedule());
+        t.calculateAllSchedule(t.getSchedule(), false);
         t.clearPlanning();
         assertEquals(0, t.getSchedule().getSemesters().get(0).getCourses().size());
     }

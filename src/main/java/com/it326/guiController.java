@@ -1,9 +1,14 @@
 package com.it326;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
+import javax.security.auth.SubjectDomainCombiner;
+
 import com.it326.Majors.Major;
+import com.it326.Majors.Minor;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,7 +62,12 @@ public class guiController {
     private ChoiceBox<Integer> yearChoice;
     @FXML
     private ContextMenu semContext;
-
+    @FXML
+    private CheckBox summerBool;
+    @FXML
+    private Label majorProgress;
+    @FXML
+    private Label minorProgress;
 
 
     private Account acc;
@@ -187,19 +197,35 @@ public class guiController {
     }
 
     public void scheduleTabController() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for (Semester s : acc.getManager().getSchedule().getSemesters()) {
-            list.add(s.getYear());
-        }
-        ArrayList<Integer> newlist = new ArrayList<Integer>();
-        for (int year : list) {
-            if (!newlist.contains(year))
-                newlist.add(year);
+        double majorprog = 0;
+        double minorprog = 0;
+        double majortot = 0;
+        double minortot = 0;
+
+        Minor minor = acc.getManager().getSchedule().getMinor();
+        Major major = acc.getManager().getSchedule().getMajor();
+        for(Semester s : acc.getManager().getSchedule().getSemesters()){
+            for(Course c : s.getCourses()){
+                if(major!=null&&major.getRequiredCourse().contains(c)){
+                    majortot+=1;
+                    if(c.getCmpleted())
+                        majorprog+=1;
+                }
+                if(minor!=null&&minor.getRequiredCourse().contains(c)){
+                    minortot+=1;
+                    if(c.getCmpleted())
+                        minorprog+=1;
+                }
+            }
+            if(majortot == 0)
+                majortot =1;
+            if(minortot == 0)
+                minortot =1;
+
+            majorProgress.setText("%" + String.valueOf(majorprog/majortot*100));
+            minorProgress.setText("%" + String.valueOf(minorprog/minortot*100));
         }
 
-        for (int i = 0; i < newlist.size(); i++) {
-            scheduleGrid.addColumn(i, new Label(newlist.get(i).toString()));
-        }
     }
 
     // onclick save note button
@@ -270,12 +296,13 @@ public class guiController {
     }
 
     public void calcAll() {
+        boolean summer = summerBool.isSelected();
         if(acc.getManager().getSchedule().getMajor() == null){
             detailsPane.setPrefRowCount(1);
             detailsPane.setText("Select a Major first.");
             return;
         }
-        acc.getManager().calculateAllSchedule(acc.getManager().getSchedule());
+        acc.getManager().calculateAllSchedule(acc.getManager().getSchedule(), summer);
         updateLists();
     }
 
@@ -348,5 +375,14 @@ public class guiController {
         inputStage.show();
     }
 
-    
+    public void lockCourse(){
+        Course c = currentCourseList.getSelectionModel().getSelectedItem();
+        if(c.getCmpleted())
+            c.setCmpleted(false);
+        else
+            c.setCmpleted(true);
+        System.out.println(c.getCmpleted());
+        updateLists();
+    }
+
 }

@@ -26,8 +26,8 @@ public class guiPassController {
         System.out.println(password + newpassword + confirmpassword);
         if(password.equals(oldpassword)) {
             if (newpassword.equals(confirmpassword)) {
-                DatabaseHandler.saveAccount(DatabaseHandler.currentAccount);
                 DatabaseHandler.currentAccount.setPassword(newpassword);
+                DatabaseHandler.saveAccount(DatabaseHandler.currentAccount);
                 Stage stage = (Stage) passError.getScene().getWindow();
                 stage.close();
             } else {

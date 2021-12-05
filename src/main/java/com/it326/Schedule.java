@@ -49,17 +49,58 @@ public class Schedule implements Serializable {
         return tempSem;
     }
 
+    public Semester addSemester(boolean summer) {
+        int year = 2020 + java.util.Calendar.YEAR;
+        String seas = "";
+        if(summer && !semesters.isEmpty() && semesters.get(semesters.size()-1).getSeason()=="Spring"){
+            semesters.add(new Semester("Summer", semesters.get(semesters.size()-1).getYear()));
+            semesters.get(semesters.size()-1).setMaxCreds(6);
+            return semesters.get(semesters.size()-1);
+        }
+        if (semesters.isEmpty()) {
+            if (java.util.Calendar.MONTH < 7)
+                seas = "Fall";
+            else {
+                seas = "Spring";
+                year++;
+            }
+        } else {
+            if (semesters.get(semesters.size() - 1).getSeason() == "Spring") {
+                seas = "Fall";
+                year = semesters.get(semesters.size() - 1).getYear() + 1;
+            }
+            else if(semesters.get(semesters.size() - 1).getSeason() == "Summer") {
+                seas = "Fall";
+                year = semesters.get(semesters.size() - 1).getYear() + 1;
+            }
+            else {
+                seas = "Spring";
+                year = semesters.get(semesters.size() - 1).getYear();
+            }
+        }
+        Semester tempSem = new Semester(seas, year);
+        this.semesters.add(tempSem);
+        Collections.sort(semesters);
+        return tempSem;
+    }
+
+    public void clearSchedule(){
+        for(int i = semesters.size()-1; i>=0; i--){
+            removeSemester(semesters.get(i));
+        }
+    }
+
     public Semester addSemester(String seas, int year) {
         Semester tempSem = new Semester(seas, year);
         this.semesters.add(tempSem);
         Collections.sort(semesters);
         return tempSem;
-        
     }
 
-    public void addSemester(Semester s) {
-        this.semesters.add(s);
+    public void addSemester(Semester s){
+        semesters.add(s);
     }
+
 
     public void removeSemester(Semester semester) {
         for(int i = 0; i<semester.getCourses().size(); i++){

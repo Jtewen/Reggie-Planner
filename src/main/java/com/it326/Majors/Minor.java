@@ -25,6 +25,9 @@ public class Minor implements Serializable {
         try {
             minor = mnr;
             String path = getPath(mnr);
+            if(path=="None"){
+                return;
+            }
             Reader reader = Files.newBufferedReader(Paths.get(path));
             try (CSVReader csvReader = new CSVReader(reader)) {
                 List<String[]> dataSet = csvReader.readAll();
@@ -75,6 +78,7 @@ public class Minor implements Serializable {
         switch(mjr){
             case "Technology": return "src/main/java/com/it326/Majors/techminorlist.csv";
             case "Mathematics": return "src/main/java/com/it326/Majors/mathminorlist.csv";
+            case "None": return "None";
             default: return null;
         }
     }

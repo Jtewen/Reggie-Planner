@@ -61,42 +61,64 @@ public class ScheduleManager implements Serializable {
 //
     //}
 
-    public void calculateAllSchedule(Schedule s){
+    public void calculateAllSchedule(Schedule s, boolean summer){
+        boolean flag = false;
         clearPlanning();
         List<Course> temp = new ArrayList<Course>();
         for (Course c : s.getUnassignedCourses()) {
             temp.add(c);
         }
-        while(! s.getUnassignedCourses().isEmpty()){
+        while(!s.getUnassignedCourses().isEmpty()){
             for(Course c : temp){
-                for(int i = 0; i<10; i++){
+                for(int i = 0; i<=s.getSemesters().size(); i++){
                     if(s.getSemesters().size()<=i){
-                        s.addSemester();
+                        s.addSemester(summer);
+                        i = 0;
                     }
                     if(s.verifyCourse(s.getSemesters().get(i), c)){
                         if(s.addCourse(s.getSemesters().get(i), c))
-                            break;
+                            flag = true;
                     }
+                    if(flag)
+                        break;
+                    if(!s.verifyCourse(s.getSemesters().get(i), c) && s.getSemesters().get(i).getCourses().isEmpty())
+                        break;
                 }
+                flag = false;
+            }
+            temp = new ArrayList<Course>();
+            for (Course c : s.getUnassignedCourses()) {
+                temp.add(c);
             }
         }
+        cleanSchedule(s);
     }
 
     public void calculateCurrentSchedule(Schedule s){
         clearPlanning();
+        boolean flag = false;
         List<Course> temp = new ArrayList<Course>();
         for (Course c : s.getUnassignedCourses()) {
             temp.add(c);
         }
         for(Course c : temp){
-            for(int j = 0; j<10; j++){
-                for(int i = 0; i<s.getSemesters().size(); i++){
-                    if(s.verifyCourse(s.getSemesters().get(i), c)){
-                        if(s.addCourse(s.getSemesters().get(i), c))
-                            break;
-                    }
+            for(int i = 0; i<s.getSemesters().size(); i++){
+                if(s.verifyCourse(s.getSemesters().get(i), c)){
+                    if(s.addCourse(s.getSemesters().get(i), c))
+                        flag = true;
                 }
+                if(flag)
+                    break;
             }
+            flag = false;
+        }
+        cleanSchedule(s);
+    }
+
+    public void cleanSchedule(Schedule s){
+        for (int i = sched.getSemesters().size()-1; i>-1; i--) {
+            if(sched.getSemesters().get(i).getCourses().isEmpty())
+                sched.removeSemester(sched.getSemesters().get(i));
         }
     }
 
@@ -140,11 +162,15 @@ public class ScheduleManager implements Serializable {
 
     public void clearPlanning() {
         for (Semester s : sched.getSemesters()) {
-            for (int i = 0; i < s.getCourses().size(); i++) {
+            for (int i = s.getCourses().size() - 1; i > -1; i--) {
                 if (!s.getCourses().get(i).getCmpleted())
                     sched.removeCourse(s, s.getCourses().get(i));
             }
         }
+        //for (int i = sched.getSemesters().size()-1; i>-1; i--) {
+        //    if(sched.getSemesters().get(i).getCourses().isEmpty())
+        //        sched.removeSemester(sched.getSemesters().get(i));
+        //}
     }
 
     public void filterClass() {

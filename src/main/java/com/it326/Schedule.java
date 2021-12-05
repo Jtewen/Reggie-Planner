@@ -65,6 +65,7 @@ public class Schedule implements Serializable {
         for(int i = 0; i<semester.getCourses().size(); i++){
             removeCourse(semester, semester.getCourses().get(i));
         }
+        semesters.remove(semester);
     }
 
     public void addExternalCreds(int creds) {

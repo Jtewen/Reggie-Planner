@@ -59,6 +59,7 @@ public class guiController {
     private ContextMenu semContext;
 
 
+
     private Account acc;
 
 
@@ -337,4 +338,15 @@ public class guiController {
         updateLists();
     }
 
+    public void openPassChange() throws IOException{
+        Stage inputStage = new Stage();
+        Parent newScene = FXMLLoader.load(getClass().getResource("Pass_Change_Scene.fxml"));
+        inputStage.setTitle("Change Password");
+        inputStage.setScene(new Scene(newScene));
+        inputStage.initStyle(StageStyle.UTILITY);
+        //on "add semester" window close 
+        inputStage.show();
+    }
+
+    
 }

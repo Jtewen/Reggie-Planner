@@ -26,4 +26,5 @@ public class guiMinorController {
         Stage stage = (Stage) minorList.getScene().getWindow();
         stage.close();
     }
+
 }

@@ -1,0 +1,12 @@
+package com.it326;
+import com.it326.Majors.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+public class ScheduleMAnagerTest {
+    @Test()
+    public void testScheduleManagerCon()
+    {
+        ScheduleManager t = new ScheduleManager();
+    }
+}

@@ -8,6 +8,7 @@ public class DatabaseHandler {
     static ArrayList<Account> accountList = new ArrayList<Account>();
     static ArrayList<Course> courseList = new ArrayList<Course>();
     static ArrayList<String> majorNames = new ArrayList<String>(); 
+    static ArrayList<String> minorNames = new ArrayList<String>(); 
     static Account currentAccount;
 
     public static void loadAccounts() throws IOException, ClassNotFoundException{
@@ -21,14 +22,16 @@ public class DatabaseHandler {
     }
 
     public static void saveAccount(Account a) throws IOException{
-        if(!accountList.contains(a))
-            accountList.add(a);
+        if(accountList.contains(a)){
+            accountList.remove(a);
+        }
+        accountList.add(a);
+
         FileOutputStream f = new FileOutputStream(new File("src/main/java/com/it326/Data/Accounts.dat"));
 		ObjectOutputStream o = new ObjectOutputStream(f);
         o.writeObject(accountList);
         f.close();
         o.close();
-        System.out.println(accountList);
     }
 
     public static void saveAccount() throws IOException{
@@ -41,7 +44,6 @@ public class DatabaseHandler {
 
     public static Account verifyAccount(String usr, String pwd){
         for(Account a : accountList){
-            System.out.println(usr + " " + a.getUsername() + pwd + " " + a.getPassword());
             if (usr.equals(a.getUsername()) && pwd.equals(a.getPassword())) {
                 return a;
             }

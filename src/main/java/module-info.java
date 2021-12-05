@@ -7,4 +7,5 @@ module reggieplanner{
     requires java.base;
     exports com.it326;
     exports com.it326.Majors;
+
 }

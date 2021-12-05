@@ -87,6 +87,8 @@ public class Schedule implements Serializable {
     public void addSemester(String seas, int year) {
         this.semesters.add(new Semester(seas, year));
         Collections.sort(semesters);
+        return tempSem;
+        
     }
 
     public void addSemester(Semester s) {

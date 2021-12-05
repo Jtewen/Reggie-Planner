@@ -22,6 +22,7 @@ public class guiMinorController {
     public void setMinor(){
         String minor = minorList.getSelectionModel().getSelectedItem();
         Account acc = DatabaseHandler.currentAccount;
+        acc.getManager().getSchedule().clearSchedule();
         acc.getManager().getSchedule().setMinor(new Minor(minor));
         Stage stage = (Stage) minorList.getScene().getWindow();
         stage.close();

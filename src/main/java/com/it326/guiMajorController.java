@@ -21,6 +21,7 @@ public class guiMajorController {
     public void setMajor(){
         String major = majorList.getSelectionModel().getSelectedItem();
         Account acc = DatabaseHandler.currentAccount;
+        acc.getManager().getSchedule().clearSchedule();
         acc.getManager().getSchedule().setMajor(new Major(major));
         Stage stage = (Stage) majorList.getScene().getWindow();
         stage.close();

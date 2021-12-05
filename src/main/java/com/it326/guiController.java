@@ -3,6 +3,8 @@ package com.it326;
 import java.io.IOException;
 import java.util.*;
 
+import javax.security.auth.SubjectDomainCombiner;
+
 import com.it326.Majors.Major;
 
 import javafx.collections.FXCollections;
@@ -57,6 +59,8 @@ public class guiController {
     private ChoiceBox<Integer> yearChoice;
     @FXML
     private ContextMenu semContext;
+    @FXML
+    private CheckBox summerBool;
 
 
 
@@ -270,12 +274,13 @@ public class guiController {
     }
 
     public void calcAll() {
+        boolean summer = summerBool.isSelected();
         if(acc.getManager().getSchedule().getMajor() == null){
             detailsPane.setPrefRowCount(1);
             detailsPane.setText("Select a Major first.");
             return;
         }
-        acc.getManager().calculateAllSchedule(acc.getManager().getSchedule());
+        acc.getManager().calculateAllSchedule(acc.getManager().getSchedule(), summer);
         updateLists();
     }
 
@@ -348,5 +353,14 @@ public class guiController {
         inputStage.show();
     }
 
-    
+    public void lockCourse(){
+        Course c = currentCourseList.getSelectionModel().getSelectedItem();
+        if(c.getCmpleted())
+            c.setCmpleted(false);
+        else
+            c.setCmpleted(true);
+        System.out.println(c.getCmpleted());
+        updateLists();
+    }
+
 }

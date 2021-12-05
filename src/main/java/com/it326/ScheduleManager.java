@@ -61,7 +61,7 @@ public class ScheduleManager implements Serializable {
 //
     //}
 
-    public void calculateAllSchedule(Schedule s){
+    public void calculateAllSchedule(Schedule s, boolean summer){
         clearPlanning();
         List<Course> temp = new ArrayList<Course>();
         for (Course c : s.getUnassignedCourses()) {
@@ -71,7 +71,7 @@ public class ScheduleManager implements Serializable {
             for(Course c : temp){
                 for(int i = 0; i<10; i++){
                     if(s.getSemesters().size()<=i){
-                        s.addSemester();
+                        s.addSemester(summer);
                     }
                     if(s.verifyCourse(s.getSemesters().get(i), c)){
                         if(s.addCourse(s.getSemesters().get(i), c))

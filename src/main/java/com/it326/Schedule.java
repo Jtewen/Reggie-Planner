@@ -49,6 +49,41 @@ public class Schedule implements Serializable {
         return tempSem;
     }
 
+    public Semester addSemester(boolean summer) {
+        int year = 2020 + java.util.Calendar.YEAR;
+        String seas = "";
+        if(summer && semesters.get(semesters.size()-1).getSeason()=="Spring"){
+            semesters.add(new Semester("Summer", semesters.get(semesters.size()-1).getYear()));
+            return semesters.get(semesters.size()-1);
+        }
+        if (semesters.isEmpty()) {
+            if (java.util.Calendar.MONTH < 7)
+                seas = "Fall";
+            else {
+                seas = "Spring";
+                year++;
+            }
+        } else {
+            if (semesters.get(semesters.size() - 1).getSeason() == "Spring") {
+                seas = "Fall";
+                year = semesters.get(semesters.size() - 1).getYear() + 1;
+            } else {
+                seas = "Spring";
+                year = semesters.get(semesters.size() - 1).getYear();
+            }
+        }
+        Semester tempSem = new Semester(seas, year);
+        this.semesters.add(tempSem);
+        Collections.sort(semesters);
+        return tempSem;
+    }
+
+    public void clearSchedule(){
+        for(int i = semesters.size()-1; i>=0; i--){
+            removeSemester(semesters.get(i));
+        }
+    }
+
     public void addSemester(String seas, int year) {
         this.semesters.add(new Semester(seas, year));
         Collections.sort(semesters);

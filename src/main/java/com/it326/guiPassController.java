@@ -18,7 +18,7 @@ public class guiPassController {
     @FXML
     private Label passError;
 
-    public void changePassword() throws IOException{
+    public void changePassword() throws IOException, ClassNotFoundException{
         String password = DatabaseHandler.currentAccount.getPassword().trim();
         String oldpassword = oldPass.getText().trim();
         String newpassword = newPass.getText().trim();

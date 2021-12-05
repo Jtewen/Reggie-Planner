@@ -21,17 +21,21 @@ public class DatabaseHandler {
         
     }
 
-    public static void saveAccount(Account a) throws IOException{
-        if(accountList.contains(a)){
-            accountList.remove(a);
+    public static void saveAccount(Account a) throws IOException, ClassNotFoundException{
+        if(!accountList.isEmpty()){
+            for(int i = accountList.size()-1; i>-1; i--){
+                Account temp = accountList.get(i);
+                if(temp.username.equals(a.username))
+                    accountList.remove(i);
+            }
         }
         accountList.add(a);
-
         FileOutputStream f = new FileOutputStream(new File("src/main/java/com/it326/Data/Accounts.dat"));
 		ObjectOutputStream o = new ObjectOutputStream(f);
         o.writeObject(accountList);
         f.close();
         o.close();
+        loadAccounts();
     }
 
     public static void saveAccount() throws IOException{
@@ -43,6 +47,7 @@ public class DatabaseHandler {
     }
 
     public static Account verifyAccount(String usr, String pwd){
+        System.out.println(accountList);
         for(Account a : accountList){
             if (usr.equals(a.getUsername()) && pwd.equals(a.getPassword())) {
                 return a;
@@ -51,7 +56,7 @@ public class DatabaseHandler {
         return null;
     }
 
-    public static Account registerAccount(String usr, String pwd) throws IOException{
+    public static Account registerAccount(String usr, String pwd) throws IOException, ClassNotFoundException{
         if (usr != "" && pwd != "" ) {
             for(Account a : accountList){
                 if(usr.equals(a.getUsername()))
@@ -62,5 +67,10 @@ public class DatabaseHandler {
             return temp;
         }
         return null;
+    }
+
+    public static void logout() throws ClassNotFoundException, IOException {
+        saveAccount(currentAccount);
+        currentAccount = null;
     }
 }

@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -104,11 +105,13 @@ public class guiController {
     // populate lists
     public void updateLists() {
         // repopulate list
-        ObservableList<Semester> listContent = FXCollections
-                .observableList(acc.getManager().getSchedule().getSemesters());
-        semesterList.setItems(listContent);
-        loadCurrentCourses();
-        loadUnassignedCourses();
+        ObservableList<Semester> listContent = FXCollections.observableList(acc.getManager().getSchedule().getSemesters());
+        if(!listContent.isEmpty())
+            semesterList.setItems(listContent);
+        if(semesterList.getSelectionModel().getSelectedItem()!=null)
+            loadCurrentCourses();
+        if(acc.getManager().getSchedule().getUnassignedCourses()!=null)
+            loadUnassignedCourses();
     }
 
     public void loadCurrentCourses() {
@@ -153,17 +156,19 @@ public class guiController {
     public void loadCCourseInfo() {
         Course c = currentCourseList.getSelectionModel().getSelectedItem();
         detailsPane.setPrefRowCount(8);
-        detailsPane.setText("Course: " + c + "\n\n" + "Prerequisites: " + c.getPreReqs() + "\n\n" + "Description: \n" + c.getDescription());
+        if(c!=null)
+            detailsPane.setText("Course: " + c + "\n\n" + "Prerequisites: " + c.getPreReqs() + "\n\n" + "Description: \n" + c.getDescription());
     }
 
     public void loadUCourseInfo() {
         Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
         detailsPane.setPrefRowCount(8);
-        detailsPane.setText("Course: " + c + "\n\n" + "Prerequisites: " + c.getPreReqs() +"\n\n"+ "Description: \n" + c.getDescription());
+        if(c!=null)
+            detailsPane.setText("Course: " + c + "\n\n" + "Prerequisites: " + c.getPreReqs() +"\n\n"+ "Description: \n" + c.getDescription());
     }
 
     // handles new user registration
-    public void register() throws IOException {
+    public void register() throws IOException, ClassNotFoundException {
         acc = DatabaseHandler.registerAccount(usrField.getText(), pwdField.getText());
         if(acc!=null)
             loginInit(acc);
@@ -276,8 +281,8 @@ public class guiController {
         updateLists();
     }
 
-    public void logout() {
-        DatabaseHandler.currentAccount = null;
+    public void logout() throws ClassNotFoundException, IOException {
+        DatabaseHandler.logout();
         acc = null;
         menuContainer.getChildren().add(loginBar);
         courseAddButton.setDisable(true);
@@ -291,7 +296,8 @@ public class guiController {
         pwdField.setText("");
     }
 
-    public void saveAccount() throws IOException {
+    public void saveAccount() throws IOException, ClassNotFoundException {
+        System.out.println("pressed save");
         DatabaseHandler.saveAccount(acc);
     }
 

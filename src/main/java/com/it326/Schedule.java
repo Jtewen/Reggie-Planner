@@ -48,9 +48,12 @@ public class Schedule implements Serializable {
         return tempSem;
     }
 
-    public void addSemester(String seas, int year) {
-        this.semesters.add(new Semester(seas, year));
+    public Semester addSemester(String seas, int year) {
+        Semester tempSem = new Semester(seas, year);
+        this.semesters.add(tempSem);
         Collections.sort(semesters);
+        return tempSem;
+        
     }
 
     public void addSemester(Semester s) {

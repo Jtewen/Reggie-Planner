@@ -21,7 +21,7 @@ public class SemesterTest {
     @Test
     public void testAddCourse()
     {
-        Account acc = new Account("Joseph", "test");
+        Account acc = new Account("Test", "test");
         Schedule sch = acc.getManager().getSchedule();
         Semester sem = sch.addSemester();
         Course c = new Course("IT", 326, "Principles of Software Engineering", 3, "IT 261", "This is a Decriptions");

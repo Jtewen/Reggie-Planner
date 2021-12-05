@@ -11,20 +11,20 @@ import com.it326.Course;
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvException;
 
-public class Major implements Serializable {
+public class Minor implements Serializable {
 
-    String major;
-    ArrayList<String> majorNames = new ArrayList<String>();
+    String minor;
+    ArrayList<String> minorNames = new ArrayList<String>();
     List<Course> requiredCourses = new ArrayList<Course>();
 
     // This is the most terrifying spaghetti constructor
     // Reads the data from ITlist.csv and populates a "tree" of courses that are
     // bound by the requiredCourses list.
-    public Major(String mjr) {
+    public Minor(String mnr) {
 
         try {
-            major = mjr;
-            String path = getPath(mjr);
+            minor = mnr;
+            String path = getPath(mnr);
             Reader reader = Files.newBufferedReader(Paths.get(path));
             try (CSVReader csvReader = new CSVReader(reader)) {
                 List<String[]> dataSet = csvReader.readAll();
@@ -40,7 +40,7 @@ public class Major implements Serializable {
                     }
                     else{
                         requiredCourses.add(new Course(data[0].replace("\"", ""),
-                        000,
+                        999,
                         data[1].replace("\"", ""),
                         Integer.parseInt(data[2].replace("\"", "")),
                         data[3].replace("\"", ""),
@@ -66,13 +66,15 @@ public class Major implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        for(Course c : requiredCourses){
+            System.out.println(c.getPreReqs());
+        }
     }
 
     public String getPath(String mjr){
         switch(mjr){
-            case "Computer Science": return "src/main/java/com/it326/Majors/CSlist.csv";
-            case "Cybersecurity": return "src/main/java/com/it326/Majors/Cyberlist.csv";
-            case "Web Dev": return "src/main/java/com/it326/Majors/WDlist.csv";
+            case "Technology": return "src/main/java/com/it326/Majors/techminorlist.csv";
+            case "Mathematics": return "src/main/java/com/it326/Majors/mathminorlist.csv";
             default: return null;
         }
     }
@@ -105,12 +107,12 @@ public class Major implements Serializable {
         return sum;
     }
 
-    public ArrayList<String> getMajorNames(){
-        return majorNames;
+    public ArrayList<String> getMinorNames(){
+        return minorNames;
     }
 
     public String toString(){
-        return major;
+        return minor;
     }
 
     public boolean isNumeric(String strNum) {

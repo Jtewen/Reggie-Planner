@@ -80,6 +80,9 @@ public class Course implements Comparable<Course>, Serializable{
     }
 
     public String toString(){
+        if(courseNumber == 999 || courseNumber == 000){
+           return department; 
+        }
         return department + " " + courseNumber;
     }
 

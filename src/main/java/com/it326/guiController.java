@@ -58,6 +58,7 @@ public class guiController {
     @FXML
     private ContextMenu semContext;
 
+
     private Account acc;
 
 
@@ -140,14 +141,14 @@ public class guiController {
 
     public void loadCCourseInfo() {
         Course c = currentCourseList.getSelectionModel().getSelectedItem();
-        detailsPane.setPrefRowCount(5);
-        detailsPane.setText("Course: " + c + "\n\n" + "Description: \n" + c.getDescription());
+        detailsPane.setPrefRowCount(8);
+        detailsPane.setText("Course: " + c + "\n\n" + "Prerequisites: " + c.getPreReqs() + "\n\n" + "Description: \n" + c.getDescription());
     }
 
     public void loadUCourseInfo() {
         Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
-        detailsPane.setPrefRowCount(5);
-        detailsPane.setText("Course: " + c + "\n\n" + "Description: \n" + c.getDescription());
+        detailsPane.setPrefRowCount(8);
+        detailsPane.setText("Course: " + c + "\n\n" + "Prerequisites: " + c.getPreReqs() +"\n\n"+ "Description: \n" + c.getDescription());
     }
 
     // handles new user registration
@@ -240,7 +241,11 @@ public class guiController {
     public void addCourse() {
         Course c = unassignedCourseList.getSelectionModel().getSelectedItem();
         Semester s = semesterList.getSelectionModel().getSelectedItem();
-        acc.getManager().getSchedule().addCourseExplicit(s, c);
+        boolean success = acc.getManager().getSchedule().addCourseExplicit(s, c);
+        if(!success){
+            detailsPane.setPrefRowCount(1);
+            detailsPane.setText("Add course failed. Must add prerequisites first.");
+        }
         updateLists();
     }
 
@@ -301,8 +306,22 @@ public class guiController {
         inputStage.show();
     }
 
-    public void setMinor(){
-
+    public void setMinor() throws IOException{
+        Stage inputStage = new Stage();
+        Parent newScene = FXMLLoader.load(getClass().getResource("Minor_List_Scene.fxml"));
+        inputStage.setTitle("Select Minor");
+        inputStage.setScene(new Scene(newScene));
+        inputStage.initStyle(StageStyle.UTILITY);
+        //on "add semester" window close
+        inputStage.setOnHidden(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                try{updateLists();
+                }finally{
+                    inputStage.close();
+                }
+            }
+        });  
+        inputStage.show();
     }
 
     public void checkForSem(){
@@ -312,5 +331,10 @@ public class guiController {
         }
     }
 
+    public void removeSemester(){
+        Semester del = semesterList.getSelectionModel().getSelectedItem();
+        acc.getManager().getSchedule().removeSemester(del);
+        updateLists();
+    }
 
 }

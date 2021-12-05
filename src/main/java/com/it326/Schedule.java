@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 import com.it326.Majors.Major;
+import com.it326.Majors.Minor;
 
 public class Schedule implements Serializable {
     String name;
     Major major;
-    String minor;
+    Minor minor;
     int externalCreds;
     Date graduation;
     List<Semester> semesters = new ArrayList<Semester>();
@@ -58,7 +59,9 @@ public class Schedule implements Serializable {
     }
 
     public void removeSemester(Semester semester) {
-
+        for(int i = 0; i<semester.getCourses().size(); i++){
+            removeCourse(semester, semester.getCourses().get(i));
+        }
     }
 
     public void addExternalCreds(int creds) {
@@ -101,16 +104,24 @@ public class Schedule implements Serializable {
 
     public void setMajor(Major major) {
         this.major = major;
-        this.unassignedCourses = major.getRequiredCourse();
+        this.unassignedCourses.clear();
+        this.unassignedCourses.addAll(major.getRequiredCourse());
+        if(minor!=null)
+            this.unassignedCourses.addAll(minor.getRequiredCourse());
         this.allCourses = this.unassignedCourses;
     }
 
-    public String getMinor() {
+    public Minor getMinor() {
         return this.minor;
     }
 
-    public void setMinor(String minor) {
+    public void setMinor(Minor minor) {
         this.minor = minor;
+        this.unassignedCourses.clear();
+        if(major!=null)
+            this.unassignedCourses.addAll(major.getRequiredCourse());
+        this.unassignedCourses.addAll(minor.getRequiredCourse());
+        this.allCourses = this.unassignedCourses;
     }
 
     public List<Semester> getSemesters() {
@@ -138,26 +149,47 @@ public class Schedule implements Serializable {
         return getName();
     }
 
-    public void addCourse(Semester s, Course c) {
-        if (s.addCourse(c))
+    public boolean addCourse(Semester s, Course c) {
+        if (s.addCourse(c)){
             unassignedCourses.remove(c);
+            return true;
+        }
+        return false;
     }
 
-    public void addCourseExplicit(Semester s, Course c) {
+    public boolean addCourseExplicit(Semester s, Course c) {
         if (s.addCourse(c)){
             c.setCmpleted(true);
             unassignedCourses.remove(c);
+            return true;
         }
+        return false;
 
     }
 
     public void removeCourse(Semester s, Course c) {
         s.removeCourse(c);
         c.setCmpleted(false);
-        System.out.println("Removed " + c);
         unassignedCourses.add(c);
         Collections.sort(unassignedCourses);
-        System.out.println(unassignedCourses);
+    }
+
+    public boolean verifyCourse(Semester s, Course c){
+
+        boolean flag = false;
+        int index = this.getSemesters().indexOf(s);
+        for(Course pre : c.getPreReqs()){
+            //for(Semester sem : this.getSemesters()){
+            for(int i = 0; i<this.getSemesters().size(); i++){
+                if(this.getSemesters().indexOf(getSemesters().get(i))>=index)
+                    break;
+                if(getSemesters().get(i).getCourses().contains(pre))
+                    flag = true;
+            }
+            if(!flag)
+                return false;
+        }
+        return true;
     }
 
 }

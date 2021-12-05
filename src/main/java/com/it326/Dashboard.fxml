@@ -29,6 +29,7 @@
                 <Menu mnemonicParsing="false" text="Account">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#saveAccount" text="Save Changes" />
+                        <MenuItem mnemonicParsing="false" onAction="#openPassChange" text="Change Password" />
                         <MenuItem mnemonicParsing="false" onAction="#logout" text="Log out" />
                   </items>
                 </Menu>

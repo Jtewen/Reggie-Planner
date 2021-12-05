@@ -20,9 +20,11 @@ public class guiPassController {
 
     public void changePassword() throws IOException{
         String password = DatabaseHandler.currentAccount.getPassword().trim();
+        String oldpassword = oldPass.getText().trim();
         String newpassword = newPass.getText().trim();
         String confirmpassword = confirmPass.getText().trim();
-        if(password.equals(newpassword)) {
+        System.out.println(password + newpassword + confirmpassword);
+        if(password.equals(oldpassword)) {
             if (newpassword.equals(confirmpassword)) {
                 DatabaseHandler.saveAccount(DatabaseHandler.currentAccount);
                 DatabaseHandler.currentAccount.setPassword(newpassword);

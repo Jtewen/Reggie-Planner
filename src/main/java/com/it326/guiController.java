@@ -106,8 +106,7 @@ public class guiController {
     public void updateLists() {
         // repopulate list
         ObservableList<Semester> listContent = FXCollections.observableList(acc.getManager().getSchedule().getSemesters());
-        if(!listContent.isEmpty())
-            semesterList.setItems(listContent);
+        semesterList.setItems(listContent);
         if(semesterList.getSelectionModel().getSelectedItem()!=null)
             loadCurrentCourses();
         if(acc.getManager().getSchedule().getUnassignedCourses()!=null)
@@ -338,6 +337,7 @@ public class guiController {
             }
         });  
         inputStage.show();
+        updateLists();
     }
 
     public void setMinor() throws IOException{

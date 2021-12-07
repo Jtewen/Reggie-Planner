@@ -220,7 +220,7 @@ public class Schedule implements Serializable {
     }
 
     public boolean addCourseExplicit(Semester s, Course c) {
-        if (s.addCourse(c)){
+        if (verifyCourse(s, c) && s.addCourse(c)){
             c.setCmpleted(true);
             unassignedCourses.remove(c);
             return true;

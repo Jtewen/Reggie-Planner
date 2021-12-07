@@ -13,7 +13,7 @@ public class DatabaseHandler {
 
     public static void loadAccounts() throws IOException, ClassNotFoundException{
         FileInputStream fi;
-        fi = new FileInputStream(new File("src/main/java/com/it326/Data/Accounts.dat"));
+        fi = new FileInputStream(new File(System.getenv("APPDATA")+"\\reggieplan\\Accounts.dat"));
         ObjectInputStream oi = new ObjectInputStream(fi);
         accountList = (ArrayList<Account>) oi.readObject();
         oi.close();
@@ -30,7 +30,7 @@ public class DatabaseHandler {
             }
         }
         accountList.add(a);
-        FileOutputStream f = new FileOutputStream(new File("src/main/java/com/it326/Data/Accounts.dat"));
+        FileOutputStream f = new FileOutputStream(new File(System.getenv("APPDATA")+"\\reggieplan\\Accounts.dat"));
 		ObjectOutputStream o = new ObjectOutputStream(f);
         o.writeObject(accountList);
         f.close();
@@ -39,7 +39,7 @@ public class DatabaseHandler {
     }
 
     public static void saveAccount() throws IOException{
-        FileOutputStream f = new FileOutputStream(new File("src/main/java/com/it326/Data/Accounts.dat"));
+        FileOutputStream f = new FileOutputStream(new File(System.getenv("APPDATA")+"\\reggieplan\\Accounts.dat"));
 		ObjectOutputStream o = new ObjectOutputStream(f);
         o.writeObject(accountList);
         f.close();

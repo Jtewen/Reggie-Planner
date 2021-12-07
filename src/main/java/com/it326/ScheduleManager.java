@@ -75,6 +75,10 @@ public class ScheduleManager implements Serializable {
                         s.addSemester(summer);
                         i = 0;
                     }
+                    else if(!(s.getSemesters().size()<=i) && isSemesterGap(i, summer)){
+                        s.addSemester(summer, i);
+                        i = 0;
+                    }
                     if(s.verifyCourse(s.getSemesters().get(i), c)){
                         if(s.addCourse(s.getSemesters().get(i), c))
                             flag = true;
@@ -94,6 +98,17 @@ public class ScheduleManager implements Serializable {
         cleanSchedule(s);
     }
 
+    public boolean isSemesterGap(int semIndex, boolean summer){
+        try{
+            switch(sched.getSemesters().get(semIndex).getSeason()){
+                case "Fall": return(sched.getSemesters().get(semIndex+1).getSeason() != "Spring");
+                case "Spring": if(summer){return (sched.getSemesters().get(semIndex+1).getSeason() != "Summer");}else{return (sched.getSemesters().get(semIndex+1).getSeason() != "Fall");}
+                case "Summer": return(sched.getSemesters().get(semIndex+1).getSeason() != "Fall");
+                default: return true;
+            }
+        }catch(Exception e){return false;}
+    }
+    
     public void calculateCurrentSchedule(Schedule s){
         clearPlanning();
         boolean flag = false;

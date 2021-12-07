@@ -84,6 +84,23 @@ public class Schedule implements Serializable {
         return tempSem;
     }
 
+    public Semester addSemester(boolean summer, int index) {
+        String seas;
+        String prevSeas = semesters.get(index).getSeason().trim();
+        int year = semesters.get(index).getYear();
+        System.out.println(semesters.get(index).getSeason());
+        switch(prevSeas){
+            case "Fall": seas = "Spring";break;
+            case "Spring": if(summer){seas = "Summer";break;}else{seas = "Fall";break;}
+            case "Summer": seas = "Fall";break;
+            default: seas = "Fall";
+        }
+        Semester tempSem = new Semester(seas, year);
+        this.semesters.add(tempSem);
+        Collections.sort(semesters);
+        return tempSem;
+    }
+
     public void clearSchedule(){
         for(int i = semesters.size()-1; i>=0; i--){
             removeSemester(semesters.get(i));
@@ -103,7 +120,7 @@ public class Schedule implements Serializable {
 
 
     public void removeSemester(Semester semester) {
-        for(int i = 0; i<semester.getCourses().size(); i++){
+        for(int i = semester.getCourses().size()-1; i>=0; i--){
             removeCourse(semester, semester.getCourses().get(i));
         }
         semesters.remove(semester);

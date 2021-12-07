@@ -1,8 +1,11 @@
 package com.it326;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.security.auth.SubjectDomainCombiner;
@@ -400,6 +403,28 @@ public class guiController {
             c.setCmpleted(true);
         System.out.println(c.getCmpleted());
         updateLists();
+    }
+
+    public void downloadSchedule(){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm");
+        File download = new File(formatter.format(date.getTime()) + "Schedule.txt");
+
+        try {
+            download.createNewFile();
+            FileWriter writer = new FileWriter(download);
+            writer.write("Schedule:\n\n");
+            for(Semester s : acc.getManager().getSchedule().getSemesters()){
+                writer.write("\t" + s.getSeason() + " " + s.getYear() + ":\n");
+                for(Course c : s.getCourses()){
+                    writer.write("\t\t-" + c.getDepartment()+c.getcourseNumber() + "\n");
+                }
+                writer.write("\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

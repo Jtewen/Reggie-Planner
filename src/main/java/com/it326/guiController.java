@@ -69,6 +69,10 @@ public class guiController {
     private Label majorProgress;
     @FXML
     private Label minorProgress;
+    @FXML
+    private Label majorCProgress;
+    @FXML
+    private Label minorCProgress;
 
 
     private Account acc;
@@ -201,34 +205,41 @@ public class guiController {
     }
 
     public void scheduleTabController() {
-        double majorprog = 0;
-        double minorprog = 0;
-        double majortot = 0;
-        double minortot = 0;
-
         Minor minor = acc.getManager().getSchedule().getMinor();
         Major major = acc.getManager().getSchedule().getMajor();
+        double majorprog = 0;
+        double minorprog = 0;
+        double majorcprog = 0;
+        double minorcprog = 0;
+        double majortot = 1;
+        double minortot = 1;
+        if(major!=null)
+            majortot = major.getRequiredCourse().size();
+        if(minor!=null)
+            minortot = minor.getRequiredCourse().size();
+
+
         for(Semester s : acc.getManager().getSchedule().getSemesters()){
             for(Course c : s.getCourses()){
                 if(major!=null&&major.getRequiredCourse().contains(c)){
-                    majortot+=1;
+                    majorprog+=1;
                     if(c.getCmpleted())
-                        majorprog+=1;
+                        majorcprog+=1;
                 }
                 if(minor!=null&&minor.getRequiredCourse().contains(c)){
-                    minortot+=1;
+                    minorprog+=1;
                     if(c.getCmpleted())
-                        minorprog+=1;
+                        minorcprog+=1;
                 }
             }
-            if(majortot == 0)
-                majortot =1;
-            if(minortot == 0)
-                minortot =1;
 
-            majorProgress.setText("%" + String.valueOf(majorprog/majortot*100));
-            minorProgress.setText("%" + String.valueOf(minorprog/minortot*100));
+            
         }
+        DecimalFormat df2 = new DecimalFormat(" #,##0.00 '%'");
+        majorProgress.setText("Assigned Courses: " + df2.format(majorprog/majortot*100));
+        majorCProgress.setText("Completed Courses: " + df2.format(majorcprog/majortot*100));
+        minorProgress.setText("Assigned Courses: " + df2.format(minorprog/minortot*100));
+        minorCProgress.setText("Completed Courses: " + df2.format(minorcprog/minortot*100));
 
     }
 
